@@ -1,3 +1,6 @@
+.header .body {
+    background-color: #2ecc71;
+}
 .body-left{
 	width: 60%;
 	height: 100vh;
@@ -24,4 +27,8 @@
 .links a{
 	width: 180px;
 	margin: 5px 0;
+}
+
+section {
+	margin: 20px 0;
 }

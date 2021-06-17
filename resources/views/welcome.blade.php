@@ -72,7 +72,6 @@
 							<a href="#">Login</a> |
 							<a href="#">Register</a>	
 							@endif
-
 						</li>
 					</ul>
 				</div>
@@ -103,6 +102,89 @@
 		</div>
 	</header>
 </div>
+<section>
+	<div class="container">
+		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+			<h1 class="display-4">About Us</h1>
+			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="container">
+		<h1 class="display-4 text-center mb-3">Our Services</h1>
+		<div class="card-deck mb-3 text-center">
+			<div class="card mb-4 box-shadow">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Farm Managment</h4>
+				</div>
+				<div class="card-body">
+					<ul class="list-unstyled mt-3 mb-4">
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Animal Managment</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Milk Manangment</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Ration Manangment</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Some Calculation Systems</li>
+					</ul>
+					<a href="" class="btn btn-lg btn-block btn-outline-primary">
+						@if(!auth()->user())
+							Login Or Register
+						@elseif(auth()->user()->type!='user')
+							Contact Us For Verified User Type
+						@elseif(auth()->user()->type=='admin' || auth()->user()->type=='verified' || auth()->user()->type=='moderator')
+							Go Dashboard
+						@endif
+					</a>
+				</div>
+			</div>
+			<div class="card mb-4 box-shadow">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">News</h4>
+				</div>
+				<div class="card-body">
+					<ul class="list-unstyled mt-3 mb-4">
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Lastest News</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> FULL NEUTRALIY</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Right News</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Less Advertisement</li>
+					</ul>
+					<a href="" class="btn btn-lg btn-block btn-outline-primary">
+						Go News
+					</a>
+				</div>
+			</div>
+			<div class="card mb-4 box-shadow">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Marketplace</h4>
+				</div>
+				<div class="card-body">
+					<ul class="list-unstyled mt-3 mb-4">
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Sell Machines and Crops</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Basic UI</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Right Test</li>
+						<li class="text-success h6"><i class="fas fa-check-circle"></i> Right Test</li>
+					</ul>
+					<a href="" class="btn btn-lg btn-block btn-outline-primary">
+						Go Marketplace
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.1.0
+    </div>
+  </footer>
 
 
 <!-- jQuery -->
