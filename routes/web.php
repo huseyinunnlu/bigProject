@@ -16,8 +16,8 @@ use App\Http\Controllers\IndexController;
 
 
 Route::get('/', [IndexController::class, 'welcome'])->name('welcome');
-/*
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-*/
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+

@@ -69,7 +69,7 @@
 								</form>
 							</div>
 							@else
-							<a href="#">Login</a> |
+							<a href="{{ route('login') }}">Login</a> |
 							<a href="#">Register</a>	
 							@endif
 						</li>
@@ -91,9 +91,9 @@
 						<a href="#" class="btn btn-success btn-sm">News</a>
 						<a href="#" class="btn btn-info btn-sm">Market</a>
 					</div>
-					@if(!auth())
+					@if(!auth()->user())
 					<div class="login m-1">
-						<a href="#">Login</a> or 
+						<a href="{{ route('login') }}">Login</a> or 
 						<a href="#">Register</a>
 					</div>
 					@endif
@@ -134,7 +134,7 @@
 					<a href="" class="btn btn-lg btn-block btn-outline-primary">
 						@if(!auth()->user())
 							Login Or Register
-						@elseif(auth()->user()->type!='user')
+						@elseif(auth()->user()->type=='user')
 							Contact Us For Verified User Type
 						@elseif(auth()->user()->type=='admin' || auth()->user()->type=='verified' || auth()->user()->type=='moderator')
 							Go Dashboard
