@@ -16,16 +16,14 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->string('email')->unique();
             $table->enum('type',['user','verified','admin','moderator'])->default('user');
-            $table->enum('gender',['male','female','not']);
-            $table->longtext('bio')->nullable();
             $table->enum('acctype',['public','private','onlyme'])->default('public');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }

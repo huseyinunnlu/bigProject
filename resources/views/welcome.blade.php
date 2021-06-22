@@ -56,9 +56,13 @@
 						<ul class="navbar-nav">
 							<li class="nav-item dropdown">
 								@auth
-								<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{'storage/'.auth()->user()->profile_photo_path}}" class="rounded-circle"width="40" height="40"> {{auth()->user()->name}}</a>
+								<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									@if($user->desc->image)
+									<img src="{{asset($user->desc->image)}}" class="rounded-circle"width="40" height="40">
+									@endif
+									 {{auth()->user()->name}}</a>
 								<div class="dropdown-menu">
-									<a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+									<a href="{{ route('profile',[auth()->user()->id,auth()->user()->slug]) }}" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
 									<form method="POST" action="{{ route('logout') }}">
 										@csrf
 										<a class="dropdown-item" href="{{ route('logout') }}"
@@ -70,7 +74,7 @@
 							</div>
 							@else
 							<a href="{{ route('login') }}">Login</a> |
-							<a href="#">Register</a>	
+							<a href="{{ route('register') }}">Register</a>	
 							@endif
 						</li>
 					</ul>
@@ -94,7 +98,7 @@
 					@if(!auth()->user())
 					<div class="login m-1">
 						<a href="{{ route('login') }}">Login</a> or 
-						<a href="#">Register</a>
+						<a href="{{ route('register') }}">Register</a>
 					</div>
 					@endif
 				</div>

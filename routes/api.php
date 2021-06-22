@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('profile/{id}', [ProfileController::class, 'getUser']);
+Route::get('profile/{id}/desc', [ProfileController::class, 'getDesc']);
+Route::post('profile/{id}/update', [ProfileController::class, 'updateDesc']);
+Route::post('profile/{id}/updateimg', [ProfileController::class, 'updateimg']);
+Route::post('profile/{id}/settings',[ProfileController::class, 'updateSettings']);
+Route::post('profile/{id}/adddesc',[ProfileController::class, 'addDesc']);

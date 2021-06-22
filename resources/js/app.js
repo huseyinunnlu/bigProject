@@ -5,6 +5,10 @@
  */
 
 require('./bootstrap');
+import Vue from 'vue';
+import CKEditor from 'ckeditor4-vue';
+
+Vue.use( CKEditor );
 
 window.Vue = require('vue').default;
 
@@ -20,7 +24,8 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('new', require('./components/new.vue').default);
+Vue.component('index', require('./components/profile/index.vue').default);
+Vue.component('content-component', require('./components/profile/content-component.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

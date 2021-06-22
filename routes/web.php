@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,9 @@ use App\Http\Controllers\IndexController;
 
 
 Route::get('/', [IndexController::class, 'welcome'])->name('welcome');
+Route::middleware('auth')->group(function () {
+	Route::get('/profile/{id}-{slug}', [ProfileController::class, 'index'])->name('profile');
+});
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

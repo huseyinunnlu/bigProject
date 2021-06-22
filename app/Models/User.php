@@ -25,8 +25,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
+        'type',
+        'acctype',
     ];
 
     /**
@@ -58,4 +61,7 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function desc(){
+        return $this->hasOne('App\Models\UserDesc');
+    }
 }
