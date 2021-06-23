@@ -59,75 +59,104 @@
 					</div>
 					<div class="info">
 						<a href="{{ route('profile',[auth()->user()->id,auth()->user()->slug]) }}" class="d-block">{{auth()->user()->name}}</a>
-					</div>
+						<form method="POST" action="{{ route('logout') }}">
+							@csrf
+							<a class="text-secondary" href="{{ route('logout') }}"
+							onclick="event.preventDefault();
+							this.closest('form').submit();">
+							{{ __('Log Out') }}
+						</a>
+					</form>
 				</div>
-				@if(auth()->user()->type!='user')
-					<nav class="mt-2">
-						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          					<li class="nav-item">
-          					<a href="pages/widgets.html" class="nav-link">
-          						<i class="nav-icon fas fa-home"></i>
-          						<p>Dashboard</p>
-          					</a>
-          					</li>
-          				</ul>
-     				</nav>
-				@endif
 			</div>
-		</aside>
-			@yield('content')
+			@if(auth()->user()->type!='user')
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<li class="nav-item">
+						<a href="{{ route('dashboard') }}" class="nav-link">
+							<i class="nav-icon fas fa-home"></i>
+							<p>Dashboard</p>
+						</a>
+					</li>
+					@if(auth()->user()->type=='admin')
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="nav-icon fas fa-cog"></i>
+							<p>
+								Adminpanel
+								<i class="fas fa-angle-left right"></i>
+								<span class="badge badge-danger right">ADMIN</span>
+							</p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('users.index') }}" class="nav-link">
+									<i class="far fa-user nav-icon"></i>
+									<p>Users</p>
+								</a>
+							</li>
+						</ul>
+					</li>
+					@endif
+				</ul>
+
+			</nav>
+			@endif
 		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-			All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.1.0
-			</div>
-		</footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
+	</aside>
+	@yield('content')
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+	<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+	All rights reserved.
+	<div class="float-right d-none d-sm-inline-block">
+		<b>Version</b> 3.1.0
 	</div>
-		<script src="{{ mix('js/app.js') }}"></script>
+</footer>
 
-	<script>
-		
-	</script>
-	<!-- ./wrapper -->
-	<!-- jQuery -->
-	<script src="{{ asset('/asset/plugins/jquery/jquery.min.js') }}"></script>
-	<!-- jQuery UI 1.11.4 -->
-	<script src="{{ asset('/asset/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-	<!-- Bootstrap 4 -->
-	<script src="{{ asset('/asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<!-- ChartJS -->
-	<script src="{{ asset('/asset/plugins/chart.js/Chart.min.js') }}"></script>
-	<!-- Sparkline -->
-	<script src="{{ asset('/asset/plugins/sparklines/sparkline.js') }}"></script>
-	<!-- JQVMap -->
-	<script src="{{ asset('/asset/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-	<script src="{{ asset('/asset/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-	<!-- jQuery Knob Chart -->
-	<script src="{{ asset('/asset/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-	<!-- daterangepicker -->
-	<script src="{{ asset('/asset/plugins/moment/moment.min.js') }}"></script>
-	<script src="{{ asset('/asset/plugins/daterangepicker/daterangepicker.js') }}"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
-	<script src="{{ asset('/asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-	<!-- Summernote -->
-	<script src="{{ asset('/asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
-	<!-- overlayScrollbars -->
-	<script src="{{ asset('/asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-	<!-- AdminLTE App -->
-	<script src="{{ asset('/asset/dist/js/adminlte.js') }}"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="{{ asset('/asset/dist/js/demo.js') }}"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="{{ asset('/asset/dist/js/pages/dashboard.js') }}"></script>
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+	<!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<script src="{{ mix('js/app.js') }}"></script>
+
+<script>
+
+</script>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="{{ asset('/asset/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('/asset/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- Bootstrap 4 -->
+<script src="{{ asset('/asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('/asset/plugins/chart.js/Chart.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset('/asset/plugins/sparklines/sparkline.js') }}"></script>
+<!-- JQVMap -->
+<script src="{{ asset('/asset/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('/asset/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{ asset('/asset/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset('/asset/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('/asset/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('/asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ asset('/asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset('/asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('/asset/dist/js/adminlte.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('/asset/dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset('/asset/dist/js/pages/dashboard.js') }}"></script>
 </body>
 </html>	

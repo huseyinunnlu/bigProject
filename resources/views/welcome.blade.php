@@ -91,7 +91,7 @@
 				<div class="body-right">
 					<h3>Welcome To <br> Company Name</h3>
 					<div class="links">
-						<a href="#" class="btn btn-primary btn-sm">Dashboard</a>
+						<a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
 						<a href="#" class="btn btn-success btn-sm">News</a>
 						<a href="#" class="btn btn-info btn-sm">Market</a>
 					</div>
@@ -135,8 +135,9 @@
 						<li class="text-success h6"><i class="fas fa-check-circle"></i> Ration Manangment</li>
 						<li class="text-success h6"><i class="fas fa-check-circle"></i> Some Calculation Systems</li>
 					</ul>
-					<a href="" class="btn btn-lg btn-block btn-outline-primary">
+					<a href="#" class="btn btn-lg btn-block btn-outline-primary">
 						@if(!auth()->user())
+
 							Login Or Register
 						@elseif(auth()->user()->type=='user')
 							Contact Us For Verified User Type
