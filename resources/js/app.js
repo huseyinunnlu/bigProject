@@ -16,6 +16,7 @@ Vue.use(VueRouter);
 Vue.component('index', require('./components/profile/index.vue').default);
 Vue.component('content-component', require('./components/profile/content-component.vue').default);
 Vue.component('users-list', require('./components/users/list.vue').default);
+Vue.component('animals-list', require('./components/animals/list.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

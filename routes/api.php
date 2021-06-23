@@ -31,3 +31,4 @@ Route::get('users', [UserController::class, 'list']);
 Route::get('users/{id}', [UserController::class, 'userDetail']);
 Route::post('users/{id}/update', [UserController::class, 'update']);
 Route::delete('users/{id}/delete', [UserController::class, 'destroy'])->prefix('adminpanel/');
+//Animals
