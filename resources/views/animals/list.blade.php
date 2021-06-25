@@ -1,7 +1,6 @@
 @extends('layouts.dashboardmaster')
 @section('content')
 <div class="content-wrapper" id="app">
-	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">
@@ -10,13 +9,14 @@
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Adminpanel</a></li>
-						<li class="breadcrumb-item active">Animals</li>
+						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+						<li class="breadcrumb-item active"> Animals</li>
 					</ol>
 				</div>
 			</div>
 		</div>
 	</section>
-	<animals-list></animals-list>
+	<router-view :userid="{{auth()->user()->id}}"></router-view>
+	{{--<animals-list :userid="{{auth()->user()->id}}"></animals-list>--}}
 </div>
 @endsection

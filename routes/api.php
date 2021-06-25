@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AnimalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\Admin\UserController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 //Profile
 Route::get('profile/{id}', [ProfileController::class, 'getUser']);
 Route::get('profile/{id}/desc', [ProfileController::class, 'getDesc']);
@@ -32,3 +34,5 @@ Route::get('users/{id}', [UserController::class, 'userDetail']);
 Route::post('users/{id}/update', [UserController::class, 'update']);
 Route::delete('users/{id}/delete', [UserController::class, 'destroy'])->prefix('adminpanel/');
 //Animals
+Route::get('/animals', [AnimalController::class, 'list']);
+Route::post('/animals/create', [AnimalController::class, 'store']);

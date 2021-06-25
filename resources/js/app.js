@@ -10,13 +10,13 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {routes} from './routes';
 import CKEditor from 'ckeditor4-vue';
-
-Vue.use( CKEditor );
 Vue.use(VueRouter);
+Vue.use( CKEditor );
 Vue.component('index', require('./components/profile/index.vue').default);
 Vue.component('content-component', require('./components/profile/content-component.vue').default);
 Vue.component('users-list', require('./components/users/list.vue').default);
 Vue.component('animals-list', require('./components/animals/list.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
