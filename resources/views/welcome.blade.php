@@ -57,8 +57,11 @@
 							<li class="nav-item dropdown">
 								@auth
 								<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									@if($user->desc)
 									@if($user->desc->image)
 									<img src="{{asset($user->desc->image)}}" class="rounded-circle"width="40" height="40">
+									@else
+									@endif
 									@endif
 									 {{auth()->user()->name}}</a>
 								<div class="dropdown-menu">

@@ -35,4 +35,8 @@ Route::post('users/{id}/update', [UserController::class, 'update']);
 Route::delete('users/{id}/delete', [UserController::class, 'destroy'])->prefix('adminpanel/');
 //Animals
 Route::get('/animals', [AnimalController::class, 'list']);
+Route::get('/animals/{id}', [AnimalController::class, 'getAnimal']);
 Route::post('/animals/create', [AnimalController::class, 'store']);
+Route::post('/animals/{id}/edit', [AnimalController::class, 'update']);
+Route::post('/animals/{id}/addmilk', [AnimalController::class, 'storeMilk']);
+Route::delete('animals/{id}/deleteMilk', [AnimalController::class, 'destroyMilk']);

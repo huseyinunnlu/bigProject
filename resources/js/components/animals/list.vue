@@ -1,5 +1,20 @@
 <template>
 	<div>
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>Profile</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active">User Profile</li>
+						</ol>
+					</div>
+				</div>
+			</div><!-- /.container-fluid -->
+		</section>
 		<section class="content">
 			<div class="container-fluid">
 				<div class="container">
@@ -164,7 +179,7 @@ export default{
 	props:['userid'],
 	methods:{
 		addAnimal(){
-			axios.post('api/animals/create',{
+			axios.post('/api/animals/create',{
 				'user_id':this.userid,
 				'earring':this.form.earring,
 				'strap':this.form.strap,
@@ -183,7 +198,7 @@ export default{
 			})
 		},
 		getAnimals(page = 1){
-			axios.get('api/animals?page=' + page,{
+			axios.get('/api/animals?page=' + page,{
 				params:{
 					user_id:this.userid,
 					search:this.filter.search,

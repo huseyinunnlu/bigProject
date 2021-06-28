@@ -32,7 +32,7 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="inputName2" class="col-sm-2 col-form-label">Gender</label>
+								<label for="inputName2" class="col-sm-2 col-form-label">Account Type</label>
 								<div class="col-sm-10">
 									<select id="inputName2" v-model="form.acctype" class="form-control">
 										<option v-for="type in types" :value="type">{{type.toUpperCase()}}</option>
