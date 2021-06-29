@@ -1834,6 +1834,97 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      animalWeight: [],
+      weight: '',
+      date: null,
+      istoday: false,
+      images: ['http://www.abmgrup.com.tr/images/icerik_resimleri/canli_agirlik_tahmin_cetveli.jpg', 'https://www.esk.gov.tr/upload/Node/10487/pics/c4eae0.450px.jpg']
+    };
+  },
+  props: ['animalid', 'isdeath'],
+  created: function created() {
+    this.getWeight();
+  },
+  methods: {
+    getWeight: function getWeight() {
+      var _this = this;
+
+      axios.get('/api/animals/' + this.animalid + '/weight').then(function (res) {
+        _this.animalWeight = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    addWeight: function addWeight() {
+      var _this2 = this;
+
+      axios.post('/api/animals/' + this.animalid + '/create', {
+        'weight': this.weight,
+        'date': this.date,
+        'istoday': this.istoday
+      }).then(function (res) {
+        _this2.getWeight();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/edit.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/edit.vue?vue&type=script&lang=js& ***!
@@ -2137,11 +2228,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       animal: [],
       milks: [],
+      lastMilk: [],
+      milkStat: [],
       form: {
         image: '',
         earring: '',
@@ -2161,6 +2288,16 @@ __webpack_require__.r(__webpack_exports__);
       date1: null,
       date2: null,
       order: true,
+      statselect: 'sum',
+      statdate1: null,
+      statdate2: null,
+      querrytypes: [{
+        name: 'Sum',
+        value: "sum"
+      }, {
+        name: 'Average',
+        value: "avg"
+      }],
       editorConfig: {},
       types: [{
         name: 'Cattles',
@@ -2175,9 +2312,9 @@ __webpack_require__.r(__webpack_exports__);
         value: null
       }, {
         name: 'Today',
-        value: 'Today'
+        value: 'today'
       }, {
-        name: 'Yesterday',
+        name: 'yesterday',
         value: 'Today -1 Day'
       }, {
         name: 'A week',
@@ -2206,11 +2343,21 @@ __webpack_require__.r(__webpack_exports__);
           'select': this.select,
           'date1': this.date1,
           'date2': this.date2,
-          'order': this.order
+          'order': this.order,
+          'statselect': this.statselect,
+          'statdate1': this.statdate1,
+          'statdate2': this.statdate2
         }
       }).then(function (res) {
         _this.animal = res.data[0];
+
+        if (_this.animal.weight == null) {
+          _this.animal.weight = null;
+        }
+
         _this.milks = res.data[1];
+        _this.lastMilk = res.data[2];
+        _this.milkStat = res.data[3];
 
         if (!_this.animal.image) {
           _this.animal.image = 'https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png';
@@ -2219,14 +2366,14 @@ __webpack_require__.r(__webpack_exports__);
         var year = _this.animal.birth.slice(0, 4);
 
         _this.animal.age = yyyy - year;
-        _this.form.earring = res.data.earring;
-        _this.form.strap = res.data.strap;
-        _this.form.name = res.data.name;
-        _this.form.desc = res.data.desc;
-        _this.form.type = res.data.type;
-        _this.form.gender = res.data.gender;
-        _this.form.birth = res.data.birth;
-        _this.form.death = res.data.death;
+        _this.form.earring = res.data[0].earring;
+        _this.form.strap = res.data[0].strap;
+        _this.form.name = res.data[0].name;
+        _this.form.desc = res.data[0].desc;
+        _this.form.type = res.data[0].type;
+        _this.form.gender = res.data[0].gender;
+        _this.form.birth = res.data[0].birth;
+        _this.form.death = res.data[0].death;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2289,6 +2436,11 @@ __webpack_require__.r(__webpack_exports__);
       this.date1 = null;
       this.date2 = null;
       this.getAnimal();
+    },
+    resetStat: function resetStat() {
+      this.statselect = null;
+      this.statdate1 = null;
+      this.statdate2 = null;
     },
     addMilk: function addMilk() {
       var _this4 = this;
@@ -3145,6 +3297,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.component('index', __webpack_require__(
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('content-component', __webpack_require__(/*! ./components/profile/content-component.vue */ "./resources/js/components/profile/content-component.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('users-list', __webpack_require__(/*! ./components/users/list.vue */ "./resources/js/components/users/list.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animals-list', __webpack_require__(/*! ./components/animals/list.vue */ "./resources/js/components/animals/list.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animalration', __webpack_require__(/*! ./components/animals/animalration.vue */ "./resources/js/components/animals/animalration.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -39236,6 +39389,45 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./resources/js/components/animals/animalration.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/animals/animalration.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animalration.vue?vue&type=template&id=057b8522& */ "./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522&");
+/* harmony import */ var _animalration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animalration.vue?vue&type=script&lang=js& */ "./resources/js/components/animals/animalration.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _animalration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__.render,
+  _animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/animals/animalration.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/animals/edit.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/animals/edit.vue ***!
@@ -39431,6 +39623,22 @@ component.options.__file = "resources/js/components/users/list.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/animals/animalration.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/animals/animalration.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./animalration.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/animals/edit.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
   !*** ./resources/js/components/animals/edit.vue?vue&type=script&lang=js& ***!
@@ -39508,6 +39716,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./list.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/users/list.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./animalration.vue?vue&type=template&id=057b8522& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522&");
+
 
 /***/ }),
 
@@ -39592,6 +39817,180 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_template_id_7975a360___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_template_id_7975a360___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./list.vue?vue&type=template&id=7975a360& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/users/list.vue?vue&type=template&id=7975a360&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("h3", { staticClass: "text-center" }, [
+        _vm._v(
+          "How The Calculate Animal's Live Weight with chest circumference."
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("p", [
+          _vm._v(
+            "\n\t\t\t\tThe table below has been prepared to give a general idea. Precise weight estimation is only possible by weighing. This table is important in terms of monitoring nutritional performance.\n\t\t\t\t"
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _vm._m(0),
+          _c("br"),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "mt-4 mb-4",
+            attrs: { src: _vm.images[0] }
+          }),
+          _vm._v(" "),
+          _c("img", { attrs: { src: _vm.images[1] } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        !_vm.isdeath
+          ? _c("div", [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.addWeight.apply(null, arguments)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "weight" } }, [
+                      _vm._v("Weight")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.weight,
+                          expression: "weight"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      attrs: { type: "number" },
+                      domProps: { value: _vm.weight },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.weight = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "weight" } }, [
+                      _vm._v("Date: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.istoday == false
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.date,
+                              expression: "date"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.date = $event.target.value
+                            }
+                          }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Todays Date:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "checkbox" },
+                      on: {
+                        change: function($event) {
+                          _vm.istoday = !_vm.istoday
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Add Weight")]
+                  )
+                ]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "ul",
+            _vm._l(_vm.animalWeight, function(weight) {
+              return _c("li", [
+                _vm._v(_vm._s(weight.weight) + "(Kg) - " + _vm._s(weight.date))
+              ])
+            }),
+            0
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "text danger" }, [
+      _vm._v(">"),
+      _c("h4", [_vm._v("Important Note:")]),
+      _vm._v(
+        " For measurement, the animal must be standing on all fours and its head in a normal position.\n\t\t\t\t"
+      )
+    ])
+  }
+]
+render._withStripped = true
+
 
 
 /***/ }),
@@ -39738,16 +40137,42 @@ var render = function() {
                           ])
                         ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("li", { staticClass: "list-group-item" }, [
+                      _c("b", [_vm._v("Last Milk Amount:")]),
+                      _vm._v(" "),
+                      _vm.animal.gender == "female" && _vm.lastMilk
+                        ? _c("a", { staticClass: "float-right" }, [
+                            _vm._v(
+                              _vm._s(_vm.lastMilk.milk) +
+                                "(L) - " +
+                                _vm._s(_vm.lastMilk.date)
+                            )
+                          ])
+                        : _c("a", { staticClass: "float-right" }, [
+                            _vm._v("No Milk")
+                          ])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _c("li", { staticClass: "list-group-item" }, [
+                      _c("b", [_vm._v("Last Avg Weight:")]),
+                      _vm._v(" "),
+                      _vm.animal.weight
+                        ? _c("a", { staticClass: "float-right" }, [
+                            _vm._v(
+                              _vm._s(_vm.animal.weight.weight) +
+                                "(KG) - " +
+                                _vm._s(_vm.animal.weight.date)
+                            )
+                          ])
+                        : _vm._e()
+                    ])
                   ]
                 )
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card card-primary" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c("p", {
@@ -39762,7 +40187,7 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header p-2" }, [
                 _c("ul", { staticClass: "nav nav-pills" }, [
-                  _vm._m(4),
+                  _vm._m(2),
                   _vm._v(" "),
                   _vm.animal.gender == "female"
                     ? _c("li", { staticClass: "nav-item" }, [
@@ -39777,7 +40202,7 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(3)
                 ])
               ]),
               _vm._v(" "),
@@ -39986,13 +40411,17 @@ var render = function() {
                                     _c("tr", [
                                       _c("th", [
                                         _vm._v(
-                                          "Milk \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                          "Milk \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
                                         ),
                                         _vm.order == true
                                           ? _c(
-                                              "button",
+                                              "a",
                                               {
-                                                staticClass: "btn-sm",
+                                                staticClass: "text-primary",
+                                                staticStyle: {
+                                                  cursor: "pointer",
+                                                  "margin-left": "5px"
+                                                },
                                                 on: { click: _vm.orderr }
                                               },
                                               [
@@ -40006,9 +40435,13 @@ var render = function() {
                                         _vm._v(" "),
                                         _vm.order == false
                                           ? _c(
-                                              "button",
+                                              "a",
                                               {
-                                                staticClass: "btn-sm",
+                                                staticClass: "text-primary",
+                                                staticStyle: {
+                                                  cursor: "pointer",
+                                                  "margin-left": "5px"
+                                                },
                                                 on: { click: _vm.orderr }
                                               },
                                               [
@@ -40047,7 +40480,7 @@ var render = function() {
                                         _c("td", [_vm._v(_vm._s(milk.date))]),
                                         _vm._v(" "),
                                         _c("td", [
-                                          _vm._m(6, true),
+                                          _vm._m(4, true),
                                           _vm._v(" "),
                                           _c(
                                             "button",
@@ -40072,17 +40505,211 @@ var render = function() {
                                     0
                                   )
                                 ]
-                              )
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row mt-5" }, [
+                                _c("div", { staticClass: "col-lg-3 col-6" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "small-box bg-success" },
+                                    [
+                                      _c("div", { staticClass: "inner" }, [
+                                        _c("span", [
+                                          _vm._v("Selected Date's "),
+                                          _c("h3", { staticClass: "mb-5" }, [
+                                            _vm._v(" " + _vm._s(_vm.milkStat)),
+                                            _c(
+                                              "sup",
+                                              {
+                                                staticStyle: {
+                                                  "font-size": "20px"
+                                                }
+                                              },
+                                              [_vm._v("L")]
+                                            )
+                                          ])
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("p", {}),
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c("label", [_vm._v("From")]),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value: _vm.statdate1,
+                                                  expression: "statdate1"
+                                                }
+                                              ],
+                                              staticClass: "float-right",
+                                              staticStyle: {},
+                                              attrs: { type: "date" },
+                                              domProps: {
+                                                value: _vm.statdate1
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.statdate1 =
+                                                    $event.target.value
+                                                }
+                                              }
+                                            }),
+                                            _c("br")
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c("label", [_vm._v("To")]),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value: _vm.statdate2,
+                                                  expression: "statdate2"
+                                                }
+                                              ],
+                                              staticClass: "float-right",
+                                              staticStyle: {},
+                                              attrs: { type: "date" },
+                                              domProps: {
+                                                value: _vm.statdate2
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.statdate2 =
+                                                    $event.target.value
+                                                }
+                                              }
+                                            }),
+                                            _c("br")
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c("label", [
+                                              _vm._v("Calculation")
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "select",
+                                              {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.statselect,
+                                                    expression: "statselect"
+                                                  }
+                                                ],
+                                                staticClass: "float-right",
+                                                staticStyle: {},
+                                                on: {
+                                                  change: function($event) {
+                                                    var $$selectedVal = Array.prototype.filter
+                                                      .call(
+                                                        $event.target.options,
+                                                        function(o) {
+                                                          return o.selected
+                                                        }
+                                                      )
+                                                      .map(function(o) {
+                                                        var val =
+                                                          "_value" in o
+                                                            ? o._value
+                                                            : o.value
+                                                        return val
+                                                      })
+                                                    _vm.statselect = $event
+                                                      .target.multiple
+                                                      ? $$selectedVal
+                                                      : $$selectedVal[0]
+                                                  }
+                                                }
+                                              },
+                                              _vm._l(_vm.querrytypes, function(
+                                                qtype
+                                              ) {
+                                                return _c(
+                                                  "option",
+                                                  {
+                                                    domProps: {
+                                                      value: qtype.value
+                                                    }
+                                                  },
+                                                  [_vm._v(_vm._s(qtype.name))]
+                                                )
+                                              }),
+                                              0
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-success btn-sm",
+                                            on: { click: _vm.getAnimal }
+                                          },
+                                          [_vm._v("Get")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-success btn-sm",
+                                            on: { click: _vm.resetStat }
+                                          },
+                                          [_vm._v("Reset")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("p")
+                                      ]),
+                                      _vm._v(" "),
+                                      _vm._m(5)
+                                    ]
+                                  )
+                                ])
+                              ])
                             ]
                           )
                         ]
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("div", {
-                    staticClass: "tab-pane",
-                    attrs: { id: "ration" }
-                  }),
+                  _c(
+                    "div",
+                    { staticClass: "tab-pane", attrs: { id: "ration" } },
+                    [
+                      _c("animalration", {
+                        attrs: {
+                          animalid: _vm.animal.id,
+                          isdeath: _vm.animal.death
+                        }
+                      })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -40558,7 +41185,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(7)
+                          _vm._m(6)
                         ]
                       )
                     ]
@@ -40589,7 +41216,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(8),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _vm.milkMessage == true
@@ -40802,26 +41429,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("b", [_vm._v("Last Milk Amount:")]),
-      _vm._v(" "),
-      _c("a", [_vm._v("-")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("b", [_vm._v("Avg Weight:")]),
-      _vm._v(" "),
-      _c("a", [_vm._v("-")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("About Animal")])
     ])
@@ -40862,6 +41469,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("button", { staticClass: "btn btn-primary btn-sm" }, [
       _c("i", { staticClass: "fas fa-pen" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-stats-bars" })
     ])
   },
   function() {
@@ -40927,7 +41542,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("section", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: /dashboard/ } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Animals")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
@@ -41587,26 +42220,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", [_vm._v("Profile")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("User Profile")
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("h1", [_vm._v("Animals")])
     ])
   },
   function() {

@@ -40,3 +40,6 @@ Route::post('/animals/create', [AnimalController::class, 'store']);
 Route::post('/animals/{id}/edit', [AnimalController::class, 'update']);
 Route::post('/animals/{id}/addmilk', [AnimalController::class, 'storeMilk']);
 Route::delete('animals/{id}/deleteMilk', [AnimalController::class, 'destroyMilk']);
+Route::get('/animals/{id}/weight', [AnimalController::class, 'getWeight']);
+Route::post('/animals/{id}/create', [AnimalController::class, 'addWeight']);
+//Ration

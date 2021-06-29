@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Animal;
 use App\Models\Milk;
+use App\Models\Weight;
 use Carbon\Carbon;
 
 
@@ -85,8 +86,29 @@ class AnimalController extends Controller
         }else{ 
             $milk = Milk::where('animal_id',$id)->orderBy('milk',$order)->get();
         }
-        $animal = Animal::whereId($id)->first() ?? abort(404);
-        return response()->json([$animal,$milk]);
+        $animal = Animal::whereId($id)->with('weight')->first() ?? abort(404);
+        if($animal->weight == null){
+            $animal->weight = null;
+        }
+            $lastMilk = '';
+        if($animal->gender == 'female'){
+            $lastMilk = Milk::where('animal_id',$id)->orderBy('date','desc')->first();
+        }
+        if($request->statdate1 && $request->statselect != null){
+            $request->statdate1 = $request->statdate1.' '.'00:00:00';
+            if($request->statdate2 == null){
+                $request->statdate2 = date("Y-m-d H:i:s");
+            }
+            if($request->statselect == 'sum'){
+                $milkStat = Milk::where('animal_id',$id)->whereBetween('date',[$request->statdate1, $request->statdate2])->sum('milk');
+            }else{
+                $milkStat = Milk::where('animal_id',$id)->whereBetween('date',[$request->statdate1, $request->statdate2])->avg('milk');
+            }
+            
+        }else{
+            $milkStat = 'No Data';
+        }
+        return response()->json([$animal,$milk,$lastMilk,$milkStat]);
     }
 
     public function update(Request $request,$id)
@@ -141,6 +163,32 @@ class AnimalController extends Controller
     {
         $milk = Milk::whereId($id)->first();
         $milk->delete();
+    }
+
+    public function getWeight($id)
+    {
+        $weight = Weight::where('animal_id',$id)->get();
+        return response()->json($weight);
+    }
+
+    public function addWeight(Request $request,$id)
+    {
+        $today = date("Y-m-d");
+        $request->validate([
+            'animal_id'=>'required',
+            'weight'=>'required',
+            'date'=>'required|date|before:'.$today,
+        ]);
+        if($request->istoday==false){
+            $date = $request->date;
+        }else{
+            $date = date("Y-m-d");
+        }
+        Weight::create([
+            'animal_id'=>$id,
+            'weight'=>$request->weight,
+            'date'=>$date,
+        ]);
     }
 
 }

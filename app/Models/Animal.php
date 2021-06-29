@@ -15,4 +15,9 @@ class Animal extends Model
     {
         return $this->hasMany('App\Models\Milk');
     }
+
+    public function weight()
+    {
+        return $this->hasOne('App\Models\Weight')->orderBy('date','desc');
+    }
 }

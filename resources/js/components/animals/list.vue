@@ -4,12 +4,12 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1>Profile</h1>
+						<h1>Animals</h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">User Profile</li>
+							<li class="breadcrumb-item"><a v-bind:href="/dashboard/">Home</a></li>
+							<li class="breadcrumb-item active">Animals</li>
 						</ol>
 					</div>
 				</div>
