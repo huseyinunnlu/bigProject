@@ -115,6 +115,12 @@
 									<p>Users</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('rations.index') }}" class="nav-link">
+									<i class="far fa-user nav-icon"></i>
+									<p>Ration Food and Type</p>
+								</a>
+							</li>
 						</ul>
 					</li>
 					@endif

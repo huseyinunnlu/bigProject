@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\AnimalController;
 
 /*
@@ -42,4 +43,16 @@ Route::post('/animals/{id}/addmilk', [AnimalController::class, 'storeMilk']);
 Route::delete('animals/{id}/deleteMilk', [AnimalController::class, 'destroyMilk']);
 Route::get('/animals/{id}/weight', [AnimalController::class, 'getWeight']);
 Route::post('/animals/{id}/create', [AnimalController::class, 'addWeight']);
-//Ration
+//Ration,
+//ration Food
+Route::get('/rations/getfood', [RationController::class, 'getFoods']);
+Route::get('/rations/food/{id}/details', [RationController::class, 'getFood']);
+Route::post('/rations/addfood', [RationController::class, 'addFood']);
+Route::post('/rations/food/{id}/update', [RationController::class, 'updateFood']);
+Route::delete('/rations/{id}/deletefood', [RationController::class, 'deleteFood']);
+//Ration Type
+Route::get('/rations/gettype', [RationController::class, 'getTypes']);
+Route::post('/rations/addType', [RationController::class, 'addType']);
+Route::delete('/rations/{id}/deletetype', [RationController::class, 'deleteType']);
+Route::get('/rations/type/{id}/details', [RationController::class, 'getType']);
+Route::post('/rations/type/{id}/update', [RationController::class, 'updateType']);

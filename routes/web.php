@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('/animals', [AnimalController::class, 'index'])->name('animals.index')->middleware('GoDashboard');
 	Route::middleware('isAdmin')->prefix('adminpanel')->group(function () {
 		Route::get('/users', [UserController::class, 'index'])->name('users.index');
+		Route::get('/rations', [RationController::class, 'index'])->name('rations.index')->middleware('GoDashboard');
 	});
 });
 
