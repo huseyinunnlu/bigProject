@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\FRationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +57,7 @@ Route::post('/rations/addType', [RationController::class, 'addType']);
 Route::delete('/rations/{id}/deletetype', [RationController::class, 'deleteType']);
 Route::get('/rations/type/{id}/details', [RationController::class, 'getType']);
 Route::post('/rations/type/{id}/update', [RationController::class, 'updateType']);
+//Creating Ration
+Route::get('/rations/selectedtype', [FRationController::class, 'getSelectedType']);
+Route::get('/rations/getfood', [FRationController::class, 'getFood']);
+Route::post('/rations/addration', [FRationController::class, 'addRation']);

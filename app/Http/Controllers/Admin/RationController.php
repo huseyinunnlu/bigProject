@@ -102,7 +102,7 @@ class RationController extends Controller
 
     public function getTypes(Request $request)
     {
-        $types = RatType::where('name','like','%'.$request->typesearch.'%')->paginate(20);
+        $types = RatType::where('name','like','%'.$request->typesearch.'%')->get();
         return response()->json($types);
     }
 
@@ -137,5 +137,13 @@ class RationController extends Controller
             'p'=>$request->p,
             'nacl'=>$request->nacl,
         ]);
+    }
+
+    //Frontend 
+
+    public function create()
+    {
+        $user = User::whereId(Auth::user()->id)->with('desc')->first();
+        return view('rations.create',compact('user'));
     }
 }

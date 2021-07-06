@@ -54,7 +54,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr v-for="food in foods.data" :key="food.id">
+										<tr v-for="food in foods" :key="food.id">
 											<td>{{food.name}}</td>
 											<td>{{food.drym}}</td>
 											<td>{{food.energy}}</td>
@@ -107,7 +107,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr v-for="type in types.data" :key="type.id">
+										<tr v-for="type in types" :key="type.id">
 											<td>{{type.name}}</td>
 											<td>{{type.energy}}</td>
 											<td>{{type.protein}} / {{type.drym}}</td>
@@ -123,7 +123,6 @@
 										</tr>
 									</tbody>
 								</table>
-								<pagination class="ml-2" :show-disabled="true" :data="types" @pagination-change-page="getType"></pagination>
 							</div>
 							<!-- /.card-body -->
 						</div>
@@ -318,7 +317,7 @@ export default {
 	data(){
 		return {
 			foods:{},
-			types:{},
+			types:[],
 			foodForm:{
 				'name':'',
 				'drym':'',
@@ -411,8 +410,8 @@ export default {
 				this.error = err.response.data.errors
 			})
 		},
-		getType(page = 1){
-			axios.get('/api/rations/gettype?page=' + page,{
+		getType(){
+			axios.get('/api/rations/gettype',{
 				params:{
 					typesearch:this.typeSearch,
 				}

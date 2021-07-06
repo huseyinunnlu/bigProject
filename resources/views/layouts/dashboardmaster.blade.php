@@ -98,6 +98,23 @@
 							</li>
 						</ul>
 					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="nav-icon fas fa-utensils"></i>
+							<p>
+								Rations
+								<i class="fas fa-angle-left right"></i>
+							</p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('rations.create') }}" class="nav-link">
+									 <i class="fas fa-plus"></i> 
+									 <p>Create Ration</p>
+								</a>
+							</li>
+						</ul>
+					</li>
 					@if(auth()->user()->type=='admin')
 					<li class="nav-item">
 						<a href="#" class="nav-link">

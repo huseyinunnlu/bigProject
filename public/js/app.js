@@ -2159,12 +2159,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       foods: {},
-      types: {},
+      types: [],
       foodForm: {
         'name': '',
         'drym': '',
@@ -2262,8 +2261,7 @@ __webpack_require__.r(__webpack_exports__);
     getType: function getType() {
       var _this3 = this;
 
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('/api/rations/gettype?page=' + page, {
+      axios.get('/api/rations/gettype', {
         params: {
           typesearch: this.typeSearch
         }
@@ -4101,6 +4099,514 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      types: [],
+      foods: [],
+      selectedType: [],
+      rat_type_id: null,
+      form: _defineProperty({
+        name: '',
+        energy: 0,
+        protein: 0,
+        drym: 0,
+        ca: 0,
+        p: 0,
+        nacl: 0,
+        desc: '',
+        food1: null,
+        food2: null,
+        food3: null,
+        food4: null,
+        food5: null,
+        food6: null,
+        food7: null,
+        food8: null,
+        food9: null,
+        food10: null,
+        food11: null,
+        food12: null,
+        foodAmount1: 0,
+        foodAmount2: 0,
+        foodAmount3: 0,
+        foodAmount4: 0,
+        foodAmount5: 0,
+        foodAmount6: 0,
+        foodAmount7: 0,
+        foodAmount8: 0,
+        foodAmount9: 0,
+        foodAmount10: 0,
+        foodAmount11: 0,
+        foodAmount12: 0,
+        foodPrice1: 0,
+        foodPrice2: 0,
+        foodPrice3: 0,
+        foodPrice4: 0,
+        foodPrice5: 0,
+        foodPrice6: 0,
+        foodPrice7: 0,
+        foodPrice8: 0,
+        foodPrice9: 0,
+        foodPrice10: 0,
+        foodPrice12: 0
+      }, "foodPrice12", 0),
+      sumfood: 0,
+      avgPrice: 0,
+      message: false,
+      error: []
+    };
+  },
+  props: ['userid'],
+  created: function created() {
+    this.getType();
+    this.getFood();
+  },
+  methods: {
+    getType: function getType() {
+      var _this = this;
+
+      axios.get('/api/rations/gettype').then(function (res) {
+        _this.types = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getFood: function getFood() {
+      var _this2 = this;
+
+      axios.get('/api/rations/getfood').then(function (res) {
+        _this2.foods = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getSelectedType: function getSelectedType() {
+      var _this3 = this;
+
+      axios.get('/api/rations/selectedtype', {
+        params: {
+          id: this.rat_type_id
+        }
+      }).then(function (res) {
+        _this3.selectedType = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    sumFood: function sumFood() {
+      this.sumfood = parseInt(this.form.foodAmount1) + parseInt(this.form.foodAmount2) + parseInt(this.form.foodAmount3) + parseInt(this.form.foodAmount4) + parseInt(this.form.foodAmount5) + parseInt(this.form.foodAmount6) + parseInt(this.form.foodAmount7) + parseInt(this.form.foodAmount8) + parseInt(this.form.foodAmount9) + parseInt(this.form.foodAmount10) + parseInt(this.form.foodAmount11) + parseInt(this.form.foodAmount12);
+    },
+    price: function price() {
+      var sumPrice = parseInt(this.form.foodPrice1) + parseInt(this.form.foodPrice2) + parseInt(this.form.foodPrice3) + parseInt(this.form.foodPrice4) + parseInt(this.form.foodPrice5) + parseInt(this.form.foodPrice6) + parseInt(this.form.foodPrice7) + parseInt(this.form.foodPrice8) + parseInt(this.form.foodPrice9) + parseInt(this.form.foodPrice10) + parseInt(this.form.foodPrice11) + parseInt(this.form.foodPrice12);
+      this.avgPrice = parseInt(this.sumfood) / sumPrice;
+    },
+    addRation: function addRation() {
+      var _this4 = this;
+
+      if (this.sumfood == 0) {
+        this.sumfood = null;
+      }
+
+      axios.post('/api/rations/addration', _defineProperty({
+        'name': this.form.name,
+        'user_id': this.userid,
+        'rat_type_id': this.rat_type_id,
+        'desc': this.form.desc,
+        'energy': this.form.energy,
+        'protein': this.form.protein,
+        'drym': this.form.drym,
+        'ca': this.form.ca,
+        'p': this.form.p,
+        'nacl': this.form.nacl,
+        'sumfood': this.sumfood,
+        'price': this.avgPrice,
+        'food1': this.form.food1,
+        'food2': this.form.food2,
+        'food3': this.form.food3,
+        'food4': this.form.food4,
+        'food5': this.form.food5,
+        'food6': this.form.food6,
+        'food7': this.form.food7,
+        'food8': this.form.food8,
+        'food9': this.form.food9,
+        'food10': this.form.food10,
+        'food11': this.form.food11,
+        'food12': this.form.food12,
+        'foodAmount1': this.form.foodAmount1,
+        'foodAmount2': this.form.foodAmount2,
+        'foodAmount3': this.form.foodAmount3,
+        'foodAmount4': this.form.foodAmount4,
+        'foodAmount5': this.form.foodAmount5,
+        'foodAmount6': this.form.foodAmount6,
+        'foodAmount7': this.form.foodAmount7,
+        'foodAmount8': this.form.foodAmount8,
+        'foodAmount9': this.form.foodAmount9,
+        'foodAmount10': this.form.foodAmount10,
+        'foodAmount11': this.form.foodAmount11,
+        'foodAmount12': this.form.foodAmount12,
+        'foodPrice1': this.form.foodPrice1,
+        'foodPrice2': this.form.foodPrice2,
+        'foodPrice3': this.form.foodPrice3,
+        'foodPrice4': this.form.foodPrice4,
+        'foodPrice5': this.form.foodPrice5,
+        'foodPrice6': this.form.foodPrice6,
+        'foodPrice7': this.form.foodPrice7,
+        'foodPrice8': this.form.foodPrice8,
+        'foodPrice9': this.form.foodPrice9,
+        'foodPrice10': this.form.foodPrice10,
+        'foodPrice12': this.form.foodPrice12
+      }, "foodPrice12", this.form.foodPrice12)).then(function (res) {
+        $('#successModal').modal('show');
+      })["catch"](function (err) {
+        _this4.error = err.response.data.errors;
+        console.log(err);
+      });
+    },
+    resetFields: function resetFields() {
+      this.form.name = '';
+      this.form.energy = 0;
+      this.form.protein = 0;
+      this.form.drym = 0;
+      this.form.ca = 0;
+      this.form.p = 0;
+      this.form.nacl = 0;
+      this.form.desc = '';
+      this.form.food1 = null;
+      this.form.food2 = null;
+      this.form.food3 = null;
+      this.form.food4 = null;
+      this.form.food5 = null;
+      this.form.food6 = null;
+      this.form.food7 = null;
+      this.form.food8 = null;
+      this.form.food9 = null;
+      this.form.food10 = null;
+      this.form.food11 = null;
+      this.form.food12 = null;
+      this.form.foodAmount1 = 0;
+      this.form.foodAmount2 = 0;
+      this.form.foodAmount3 = 0;
+      this.form.foodAmount4 = 0;
+      this.form.foodAmount5 = 0;
+      this.form.foodAmount6 = 0;
+      this.form.foodAmount7 = 0;
+      this.form.foodAmount8 = 0;
+      this.form.foodAmount9 = 0;
+      this.form.foodAmount10 = 0;
+      this.form.foodAmount11 = 0;
+      this.form.foodAmount12 = 0;
+      this.form.foodPrice1 = 0;
+      this.form.foodPrice2 = 0;
+      this.form.foodPrice3 = 0;
+      this.form.foodPrice4 = 0;
+      this.form.foodPrice5 = 0;
+      this.form.foodPrice6 = 0;
+      this.form.foodPrice7 = 0;
+      this.form.foodPrice8 = 0;
+      this.form.foodPrice9 = 0;
+      this.form.foodPrice10 = 0;
+      this.form.foodPrice11 = 0;
+      this.form.foodPrice12 = 0;
+      this.sumfood = 0;
+      this.avgPrice = 0;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/users/list.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/users/list.vue?vue&type=script&lang=js& ***!
@@ -4312,6 +4818,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.component('users-list', __webpack_requi
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animals-list', __webpack_require__(/*! ./components/animals/list.vue */ "./resources/js/components/animals/list.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animalration', __webpack_require__(/*! ./components/animals/animalration.vue */ "./resources/js/components/animals/animalration.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('rations-list', __webpack_require__(/*! ./components/admin-rations/list.vue */ "./resources/js/components/admin-rations/list.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.component('ration-create', __webpack_require__(/*! ./components/rations/create.vue */ "./resources/js/components/rations/create.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -40733,6 +41240,45 @@ component.options.__file = "resources/js/components/profile/index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/rations/create.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/rations/create.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create.vue?vue&type=template&id=6b25b266& */ "./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266&");
+/* harmony import */ var _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create.vue?vue&type=script&lang=js& */ "./resources/js/components/rations/create.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__.render,
+  _create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/rations/create.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/users/list.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/users/list.vue ***!
@@ -40900,6 +41446,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/rations/create.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/rations/create.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/users/list.vue?vue&type=script&lang=js&":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/users/list.vue?vue&type=script&lang=js& ***!
@@ -41052,6 +41614,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_6b25b266___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./create.vue?vue&type=template&id=6b25b266& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/users/list.vue?vue&type=template&id=7975a360&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/users/list.vue?vue&type=template&id=7975a360& ***!
@@ -41187,7 +41766,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.foods.data, function(food) {
+                        _vm._l(_vm.foods, function(food) {
                           return _c("tr", { key: food.id }, [
                             _c("td", [_vm._v(_vm._s(food.name))]),
                             _vm._v(" "),
@@ -41307,83 +41886,68 @@ var render = function() {
                 _vm._m(3)
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body table-responsive p-0" },
-                [
+              _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                _c("table", { staticClass: "table table-hover text-nowrap" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
                   _c(
-                    "table",
-                    { staticClass: "table table-hover text-nowrap" },
-                    [
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.types.data, function(type) {
-                          return _c("tr", { key: type.id }, [
-                            _c("td", [_vm._v(_vm._s(type.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(type.energy))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(type.protein) + " / " + _vm._s(type.drym)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(type.ca) + " / " + _vm._s(type.p))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(type.nacl))]),
+                    "tbody",
+                    _vm._l(_vm.types, function(type) {
+                      return _c("tr", { key: type.id }, [
+                        _c("td", [_vm._v(_vm._s(type.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(type.energy))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(type.protein) + " / " + _vm._s(type.drym)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(type.ca) + " / " + _vm._s(type.p))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(type.nacl))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-primary btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "RationType",
+                                    params: { id: type.id }
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-pen" })]
+                            ),
                             _vm._v(" "),
                             _c(
-                              "td",
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-primary btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "RationType",
-                                        params: { id: type.id }
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-pen" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger btn-sm",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteType(type.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-times" })]
-                                )
-                              ],
-                              1
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteType(type.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-times" })]
                             )
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("pagination", {
-                    staticClass: "ml-2",
-                    attrs: { "show-disabled": true, data: _vm.types },
-                    on: { "pagination-change-page": _vm.getType }
-                  })
-                ],
-                1
-              )
+                          ],
+                          1
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -47422,6 +47986,2386 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rations/create.vue?vue&type=template&id=6b25b266& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("section", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: /dashboard/ } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Rations")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid row" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "ration-header" }, [
+                    _c("h3", { staticClass: "text-center" }, [
+                      _vm._v("Create Ration")
+                    ]),
+                    _vm._v(" "),
+                    _c("form", [
+                      _c(
+                        "div",
+                        {
+                          staticStyle: {
+                            display: "inline-block",
+                            width: "100%",
+                            "text-align": "center",
+                            "margin-bottom": "10px"
+                          }
+                        },
+                        [
+                          _c("label", [_vm._v("Ration Name")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticStyle: { width: "30%" },
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm.error.name
+                            ? _c("span", { staticClass: "text text-danger" }, [
+                                _vm._v(_vm._s(_vm.error.name[0]))
+                              ])
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticStyle: {
+                            display: "inline-block",
+                            width: "100%",
+                            "text-align": "center",
+                            "margin-bottom": "10px"
+                          }
+                        },
+                        [
+                          _c("label", [_vm._v("Ration Type")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.rat_type_id,
+                                  expression: "rat_type_id"
+                                }
+                              ],
+                              staticStyle: { width: "30%" },
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.rat_type_id = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function($event) {
+                                    return _vm.getSelectedType()
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c("br"),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: null } }, [
+                                _vm._v("Select Type")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.types, function(type) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: type.id } },
+                                  [_vm._v(_vm._s(type.name))]
+                                )
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _vm.error.rat_type_id
+                            ? _c("span", { staticClass: "text text-danger" }, [
+                                _vm._v(_vm._s(_vm.error.rat_type_id[0]))
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("table", { staticClass: "table table-bordered" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("tbody", [
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Energy (Kcal)")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.energy) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.energy) + " Kcal")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(2)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Protein")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.protein) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.protein) + " %")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(3)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("DryMatter")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.drym) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.drym) + " %")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(4)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Calcium")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.ca) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.ca) + " %")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(5)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Phosphor")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.p) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.p) + " %")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(6)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Nacl")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.form.nacl) + "%")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.selectedType.p) + " %")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(7)
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Ration's sum Amount(Kg)")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(_vm._s(_vm.sumfood) + " Kg")
+                            ]),
+                            _vm._v(" "),
+                            _vm.error.sumfood
+                              ? _c(
+                                  "span",
+                                  { staticClass: "text text-danger" },
+                                  [_vm._v(_vm._s(_vm.error.sumfood[0]))]
+                                )
+                              : _vm._e()
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "300px" } }, [
+                            _vm._v("Ration's 1kg price")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", { staticClass: "badge bg-primary" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(_vm.avgPrice) +
+                                  " Tl\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.error.price
+                              ? _c(
+                                  "span",
+                                  { staticClass: "text text-danger" },
+                                  [_vm._v(_vm._s(_vm.error.price[0]))]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.rat_type_id
+                    ? _c("div", { staticClass: "ration-body mt-5" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "food-body d-flex justify-content-around justify-content-center"
+                          },
+                          [
+                            _c("div", { staticClass: "d-flex flex-column" }, [
+                              _c("div", [_vm._v("Opr.")]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food1 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food1 = null),
+                                        (_vm.form.foodAmount1 = "0"),
+                                        (_vm.form.foodPrice1 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food2 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food2 = null),
+                                        (_vm.form.foodAmount2 = "0"),
+                                        (_vm.form.foodPrice2 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food3 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food3 = null),
+                                        (_vm.form.foodAmount3 = "0"),
+                                        (_vm.form.foodPrice3 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food4 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food4 = null),
+                                        (_vm.form.foodAmount4 = "0"),
+                                        (_vm.form.foodPrice4 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food5 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food5 = null),
+                                        (_vm.form.foodAmount5 = "0"),
+                                        (_vm.form.foodPrice5 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food6 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food6 = null),
+                                        (_vm.form.foodAmount6 = "0"),
+                                        (_vm.form.foodPrice6 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food7 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food7 = null),
+                                        (_vm.form.foodAmount7 = "0"),
+                                        (_vm.form.foodPrice7 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food8 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food8 = null),
+                                        (_vm.form.foodAmount8 = "0"),
+                                        (_vm.form.foodPrice8 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food9 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food9 = null),
+                                        (_vm.form.foodAmount9 = "0"),
+                                        (_vm.form.foodPrice9 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food10 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food10 = null),
+                                        (_vm.form.foodAmount10 = "0"),
+                                        (_vm.form.foodPrice10 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food11 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food11 = null),
+                                        (_vm.form.foodAmount11 = "0"),
+                                        (_vm.form.foodPrice11 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mt-2 mb-2 btn btn-danger btn-sm",
+                                  attrs: { disabled: !_vm.form.food12 },
+                                  on: {
+                                    click: function($event) {
+                                      ;(_vm.form.food12 = null),
+                                        (_vm.form.foodAmount12 = "0"),
+                                        (_vm.form.foodPrice12 = "0"),
+                                        _vm.sumFood(),
+                                        _vm.price()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "d-flex flex-column" }, [
+                              _c("div", [_vm._v("Food Name")]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food1,
+                                      expression: "form.food1"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food1",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food2,
+                                      expression: "form.food2"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food2",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food3,
+                                      expression: "form.food3"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food3",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food4,
+                                      expression: "form.food4"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food4",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food5,
+                                      expression: "form.food5"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food5",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food6,
+                                      expression: "form.food6"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food6",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food7,
+                                      expression: "form.food7"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food7",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food8,
+                                      expression: "form.food8"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food8",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food9,
+                                      expression: "form.food9"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food9",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food10,
+                                      expression: "form.food10"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food10",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food11,
+                                      expression: "form.food11"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food11",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food12,
+                                      expression: "form.food12"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm mt-2 mb-2",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "food12",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select Food")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.foods, function(food) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: food.id,
+                                        domProps: { value: food.id }
+                                      },
+                                      [_vm._v(_vm._s(food.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "d-flex flex-column" }, [
+                              _c("div", [_vm._v("Amount(Kg)")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount1,
+                                    expression: "form.foodAmount1"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food1,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount1 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount1",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount2,
+                                    expression: "form.foodAmount2"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food2,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount2 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount2",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount3,
+                                    expression: "form.foodAmount3"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food3,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount3 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount3",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount4,
+                                    expression: "form.foodAmount4"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food4,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount4 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount4",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount5,
+                                    expression: "form.foodAmount5"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food5,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount5 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount5",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount6,
+                                    expression: "form.foodAmount6"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food6,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount6 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount6",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount7,
+                                    expression: "form.foodAmount7"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food7,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount7 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount7",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount8,
+                                    expression: "form.foodAmount8"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food8,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount8 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount8",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount9,
+                                    expression: "form.foodAmount9"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food9,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount9 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount9",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount10,
+                                    expression: "form.foodAmount10"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food10,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount10 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount10",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount11,
+                                    expression: "form.foodAmount11"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food11,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount11 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount11",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodAmount12,
+                                    expression: "form.foodAmount12"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food12,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodAmount12 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.sumFood()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodAmount12",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "d-flex flex-column" }, [
+                              _c("div", [_vm._v("Price(Tl or $)")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice1,
+                                    expression: "form.foodPrice1"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food1,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice1 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice1",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice2,
+                                    expression: "form.foodPrice2"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food2,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice2 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice2",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice3,
+                                    expression: "form.foodPrice3"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food3,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice3 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice3",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice4,
+                                    expression: "form.foodPrice4"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food4,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice4 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice4",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice5,
+                                    expression: "form.foodPrice5"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food5,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice5 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice5",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice6,
+                                    expression: "form.foodPrice6"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food6,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice6 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice6",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice7,
+                                    expression: "form.foodPrice7"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food7,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice7 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice7",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice8,
+                                    expression: "form.foodPrice8"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food8,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice8 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice8",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice9,
+                                    expression: "form.foodPrice9"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food9,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice9 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice9",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice10,
+                                    expression: "form.foodPrice10"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food10,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice10 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice10",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice11,
+                                    expression: "form.foodPrice11"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food11,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice11 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice11",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.foodPrice12,
+                                    expression: "form.foodPrice12"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control form-control-sm mt-2 mb-2",
+                                staticStyle: { width: "50px" },
+                                attrs: {
+                                  disabled: !_vm.form.food12,
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.form.foodPrice12 },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.price()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "foodPrice12",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", [_vm._v("Desc")]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.desc,
+                                expression: "form.desc"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            domProps: { value: _vm.form.desc },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "desc", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-success btn-sm m-4 justify-content-center",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.addRation()
+                              }
+                            }
+                          },
+                          [_vm._v("Create Ration")]
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "successModal",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: {
+                          type: "button",
+                          "data-dismiss": "modal",
+                          "aria-label": "Close"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.resetFields()
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "modal-body row d-flex flex-column" },
+                    [
+                      _vm._m(8),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "text-success text-center" }, [
+                        _vm._v("Ration Created Successfully")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass:
+                            "list-group mt-4 mb-4 col-md-6 offset-md-3"
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item active" }, [
+                            _vm._v("Ration Content")
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Ration Name:")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.name))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Energy(Kcal):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.energy))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Protein(%):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.protein))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Dry Matter(%):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.drym))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Calcium(%):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.ca))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Phosfor(%):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.p))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Nacl(%):")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.form.nacl))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Sum Food:")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.sumfood))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c("strong", { staticClass: "text-primary" }, [
+                              _vm._v("Ration's 1kg price:")
+                            ]),
+                            _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.avgPrice))
+                            ])
+                          ])
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.resetFields()
+                          }
+                        }
+                      },
+                      [_vm._v("Go To Rations Page")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("h1", [_vm._v("Rations")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
+        _vm._v(" "),
+        _c("th", [_vm._v("In Ration")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Animals Need")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { width: "40px" } }, [_vm._v("Enought")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "text-danger" }, [_vm._v("Too Much")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "text-success text-center h1" }, [
+      _c("i", { staticClass: "fas fa-check-circle" })
     ])
   }
 ]

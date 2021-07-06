@@ -18,6 +18,7 @@ Vue.component('users-list', require('./components/users/list.vue').default);
 Vue.component('animals-list', require('./components/animals/list.vue').default);
 Vue.component('animalration', require('./components/animals/animalration.vue').default);
 Vue.component('rations-list', require('./components/admin-rations/list.vue').default);
+Vue.component('ration-create', require('./components/rations/create.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
