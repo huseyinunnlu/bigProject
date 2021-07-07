@@ -131,6 +131,7 @@
 										</table>
 									</div>
 									<div class="ration-body mt-5" v-if="rat_type_id">
+										<list-food class="m-4" :foods="foods"></list-food>
 										<div class="food-body d-flex justify-content-around justify-content-center">
 											<div class="d-flex flex-column">
 												<div>Opr.</div>
@@ -266,7 +267,7 @@
 								</ul>
 							</div>
 							<div class="modal-footer">
-								<button @click="resetFields()" type="button" class="btn btn-primary">Go To Rations Page</button>
+								<router-link :to="{name :'FrontRationsList'}"><button type="button" class="btn btn-primary">Go To Rations Page</button></router-link>
 							</div>
 						</div>
 					</div>
@@ -328,7 +329,7 @@
 					foodPrice8:0,
 					foodPrice9:0,
 					foodPrice10:0,
-					foodPrice12:0,
+					foodPrice11:0,
 					foodPrice12:0,
 				},
 				sumfood:0,

@@ -7,10 +7,17 @@ use App\Models\RationType;
 use App\Models\RatFood;
 use App\Models\Ration;
 use App\Models\RatContent;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class FRationController extends Controller
 {
+
+    public function index()
+    {
+        $user = User::whereId(Auth::user()->id)->with('desc')->first();
+        return view('rations.list',compact('user'));
+    }
     public function getSelectedType(Request $request)
     {
         $type = RationType::whereId($request->id)->first();

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RationController;
+use App\Http\Controllers\FRationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard')->middleware('GoDashboard');
 	Route::get('/animals', [AnimalController::class, 'index'])->name('animals.index')->middleware('GoDashboard');
 	Route::get('/rations/create', [RationController::class, 'create'])->name('rations.create')->middleware('GoDashboard');
+	Route::get('/rations', [FRationController::class, 'index'])->name('frations.index')->middleware('GoDashboard');
 	Route::middleware('isAdmin')->prefix('adminpanel')->group(function () {
 		Route::get('/users', [UserController::class, 'index'])->name('users.index');
 		Route::get('/rations', [RationController::class, 'index'])->name('rations.index')->middleware('GoDashboard');

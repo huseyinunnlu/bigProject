@@ -113,6 +113,12 @@
 									 <p>Create Ration</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('frations.index') }}" class="nav-link">
+									 <i class="fas fa-list-ul"></i> 
+									 <p>List Rations</p>
+								</a>
+							</li>
 						</ul>
 					</li>
 					@if(auth()->user()->type=='admin')

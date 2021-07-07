@@ -4,6 +4,8 @@ import AnimalsEdit from './components/animals/edit';
 import RationsList from './components/admin-rations/list';
 import RationFood from './components/admin-rations/rationfood';
 import RationType from './components/admin-rations/rationtype';
+import FrontRationsList from './components/rations/list';
+import FrontRationsCreate from './components/rations/create';
 
 export const routes = [
 	{
@@ -35,6 +37,16 @@ export const routes = [
 		path: '/adminpanel/rationtype/:id',
 		name: 'RationType',
 		component: RationType
+	},
+	{
+		path: '/rations',
+		name: 'FrontRationsList',
+		component: FrontRationsList
+	},
+	{
+		path: '/rations/create',
+		name: 'FrontRationsCreate',
+		component: FrontRationsCreate
 	},
 	
 ];
