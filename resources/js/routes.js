@@ -6,6 +6,8 @@ import RationFood from './components/admin-rations/rationfood';
 import RationType from './components/admin-rations/rationtype';
 import FrontRationsList from './components/rations/list';
 import FrontRationsCreate from './components/rations/create';
+import FrontRationsDetails from './components/rations/details';
+import FrontRationsEdit from './components/rations/edit';
 
 export const routes = [
 	{
@@ -47,6 +49,16 @@ export const routes = [
 		path: '/rations/create',
 		name: 'FrontRationsCreate',
 		component: FrontRationsCreate
+	},
+	{
+		path: '/rations/:id/details',
+		name: 'FrontRationsDetails',
+		component: FrontRationsDetails
+	},
+	{
+		path: '/rations/:id/edit',
+		name: 'FrontRationsEdit',
+		component: FrontRationsEdit
 	},
 	
 ];

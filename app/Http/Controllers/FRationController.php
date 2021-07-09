@@ -8,6 +8,7 @@ use App\Models\RatFood;
 use App\Models\Ration;
 use App\Models\RatContent;
 use App\Models\User;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
 class FRationController extends Controller
@@ -145,5 +146,86 @@ class FRationController extends Controller
             ]);
         }
     }
+
+
+    public function list(Request $request)
+    {   
+        $order = 'desc';
+        if(!$request->order){
+            $order = 'desc';
+        }else{
+            $order = $request->order;
+        }
+        if($request->get == 'my'){
+           $rations = Ration::with('user','type')->withCount('food','favs')->where('name','like','%'.$request->search.'%')->where('user_id',$request->userid)->orderBy('favs_count',$order)->paginate(15); 
+       }elseif ($request->get == 'fav') {
+        $favs = Favorite::where('user_id',$request->userid)->select('ration_id')->get();
+        $ids = [];
+        foreach($favs as $fav){
+            array_push($ids, strval($fav->ration_id));
+        }
+        $rations = Ration::with('user','type')->withCount('food','favs')->where('name','like','%'.$request->search.'%')->whereIn('id',$ids)->orderBy('favs_count',$order)->paginate(15);
+    }else{
+        $rations = Ration::with('user','type')->withCount('food','favs')->where('name','like','%'.$request->search.'%')->orderBy('favs_count',$order)->paginate(15);
+    }
+
+    return response()->json($rations);
+}
+
+public function getRation($id)
+{
+   $ration = Ration::whereId($id)->with('user','type','food.name')->withCount('food','favs')->first();
+   return response()->json($ration);
+}
+
+public function deleteRation($id)
+{
+   Ration::whereId($id)->delete();
+}
+
+public function addFav(Request $request)
+{
+    $fav = Favorite::where('user_id',$request->user_id)->where('ration_id',$request->ration_id)->first();
+    if(empty($fav)){
+        $request->validate([
+            'user_id'=>'required',
+            'ration_id'=>'required',
+        ]);
+        Favorite::create([
+            'user_id'=>$request->user_id,
+            'ration_id'=>$request->ration_id,
+        ]);
+    }
+}
+
+public function myFav(Request $request)
+{
+    $fav = Favorite::where('user_id',$request->user_id)->where('ration_id',$request->rat_id)->first();
+    return response()->json($fav);
+
+}
+
+public function deleteFav($id)
+{
+    Favorite::whereId($id)->delete();
+}
+
+public function getRat($id)
+{
+    $ration = Ration::whereId($id)->select('id','name','desc')->first();
+    return response()->json($ration);
+}
+
+public function updateRation(Request $request,$id)
+{
+    $request->validate([
+        'name'=>'required|max:255',
+        'desc'=>'nullable|max:255',
+    ]);
+    Ration::whereId($id)->first()->update([
+        'name'=>$request->name,
+        'desc'=>$request->desc,
+    ]);
+}
 }
 

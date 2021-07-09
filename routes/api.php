@@ -22,7 +22,6 @@ use App\Http\Controllers\FRationController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 //Profile
 Route::get('profile/{id}', [ProfileController::class, 'getUser']);
 Route::get('profile/{id}/desc', [ProfileController::class, 'getDesc']);
@@ -61,3 +60,12 @@ Route::post('/rations/type/{id}/update', [RationController::class, 'updateType']
 Route::get('/rations/selectedtype', [FRationController::class, 'getSelectedType']);
 Route::get('/rations/getfood', [FRationController::class, 'getFood']);
 Route::post('/rations/addration', [FRationController::class, 'addRation']);
+//Frontentd Rations
+Route::get('/rations/list', [FRationController::class, 'list']);
+Route::get('/ration/{id}/details', [FRationController::class, 'getRation']);
+Route::delete('/ration/{id}/delete', [FRationController::class, 'deleteRation']);
+Route::post('/ration/addfav', [FRationController::class, 'addFav']);
+Route::get('/ration/myfav', [FRationController::class, 'myFav']);
+Route::delete('/ration/myfav/{id}/delete', [FRationController::class, 'deleteFav']);
+Route::get('/ration/{id}/get', [FRationController::class, 'getRat']);
+Route::post('/ration/{id}/update', [FRationController::class, 'updateRation']);
