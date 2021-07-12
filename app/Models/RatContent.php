@@ -17,4 +17,9 @@ class RatContent extends Model
     {
         return $this->belongsTo(RatFood::class, 'food_id');
     }
+
+    public function foodName()
+    {
+        return $this->belongsTo(RatFood::class, 'ration_id');
+    }
 }

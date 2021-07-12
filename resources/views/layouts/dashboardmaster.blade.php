@@ -109,14 +109,20 @@
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
 								<a href="{{ route('rations.create') }}" class="nav-link">
-									 <i class="fas fa-plus"></i> 
-									 <p>Create Ration</p>
+									<i class="fas fa-plus"></i> 
+									<p>Create Ration</p>
 								</a>
 							</li>
 							<li class="nav-item">
 								<a href="{{ route('frations.index') }}" class="nav-link">
-									 <i class="fas fa-list-ul"></i> 
-									 <p>List Rations</p>
+									<i class="fas fa-list-ul"></i> 
+									<p>List Rations</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ route('guide.index') }}" class="nav-link">
+									<i class="fas fa-paste nav-icon"></i>
+									<p>Active Rations Preparation Guide</p>
 								</a>
 							</li>
 						</ul>

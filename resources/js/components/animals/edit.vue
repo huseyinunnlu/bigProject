@@ -85,8 +85,9 @@
 						<div class="card">
 							<div class="card-header p-2">
 								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link" href="#ration" data-toggle="tab">Ration & Weight</a></li>
 									<li v-if="animal.gender == 'female'" class="nav-item"><a class="nav-link" href="#milk" data-toggle="tab">Milk Manage</a></li>
+									<li v-if="!animal.death" class="nav-item"><a class="nav-link" href="#ration" data-toggle="tab">Ration</a></li>
+									<li class="nav-item"><a class="nav-link" href="#weight" data-toggle="tab">Weight</a></li>
 									<li class="nav-item active"><a class="nav-link" href="#settings" data-toggle="tab">Edit Animal</a></li>
 								</ul>
 							</div><!-- /.card-header -->
@@ -138,7 +139,6 @@
 															<td>{{milk.protein}}(%) - {{milk.fat}}(%)</td>
 															<td>{{milk.date}}</td>
 															<td>
-																<button class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></button>
 																<button @click="deleteMilk(milk.id)" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
 															</td>
 														</tr>
@@ -180,8 +180,11 @@
 
 
 
+										<div class="tab-pane" id="weight">
+											<animalweight :animalid="animal.id" :isdeath="animal.death"></animalweight>
+										</div>
 										<div class="tab-pane" id="ration">
-											<animalration :animalid="animal.id" :isdeath="animal.death"></animalration>
+											<animalration v-if="!animal.death" :userid="animal.user_id" :animalid="animal.id" :isdeath="animal.death"></animalration>
 										</div>
 										<div class="tab-pane active" id="settings">
 											<div v-if="message==true" class="alert alert-success">
@@ -312,7 +315,7 @@
 											<input id="bidaterth" type="datetime-local" class="form-control" v-model="form.date">
 											<span v-if="error.date" class="text text-danger">{{ error.date[0] }}</span>
 										</div>
-										<button type="submit" class="btn btn-success btn-sm">Add Animal</button>
+										<button type="submit" class="btn btn-success btn-sm">Add Milk</button>
 									</form>
 								</div>
 							</div>
@@ -325,187 +328,185 @@
 		</div>
 	</template>
 	<script>
-		export default{
-			data(){
-				return {
-					animal:[],
-					milks:[],
-					lastMilk:[],
-					milkStat:[],
-					form:{
-						image:'',
-						earring:'',
-						strap:'',
-						name:'',
-						desc:'',
-						type:'',
-						gender:'',
-						birth:'',
-						death:'',
-						milk:'',
-						protein:'',
-						fat:'',
-						date:'',
-					},
-					select:null,
-					date1:null,
-					date2:null,
-					order:true,
-					statselect:'sum',
-					statdate1:null,
-					statdate2:null,
-					querrytypes:[{name:'Sum',value:"sum"},{name:'Average',value:"avg"}],
-					editorConfig:{},
-					types:[{name:'Cattles',value:'cattle',},{name:'Sheeps And Goats',value:'shandgo',}],
-					genders:['male','female'],
-					selects:[{name:'Select',value:null},{name:'Today',value:'today'},{name:'yesterday',value:'Today -1 Day'},{
-						name:'A week',value:'Today -1 Week'},{name:'A mounth',value:'Today -1 Mounth'}],
-						error:[],
-						message:false,
-						milkMessage:false,
-						delMessage:false,
-					}
+	export default{
+		data(){
+			return {
+				animal:[],
+				milks:[],
+				lastMilk:[],
+				milkStat:[],
+				form:{
+					image:'',
+					earring:'',
+					strap:'',
+					name:'',
+					desc:'',
+					type:'',
+					gender:'',
+					birth:'',
+					death:'',
+					milk:'',
+					protein:'',
+					fat:'',
+					date:'',
 				},
-				created(){
+				select:null,
+				date1:null,
+				date2:null,
+				order:true,
+				statselect:'sum',
+				statdate1:null,
+				statdate2:null,
+				querrytypes:[{name:'Sum',value:"sum"},{name:'Average',value:"avg"}],
+				editorConfig:{},
+				types:[{name:'Cattles',value:'cattle',},{name:'Sheeps And Goats',value:'shandgo',}],
+				genders:['male','female'],
+				selects:[{name:'Select',value:null},{name:'Today',value:'today'},{name:'yesterday',value:'Today -1 Day'},{
+					name:'A week',value:'Today -1 Week'},{name:'A mounth',value:'Today -1 Mounth'}],
+					error:[],
+					message:false,
+					milkMessage:false,
+					delMessage:false,
+				}
+			},
+			created(){
+				this.getAnimal()
+			},
+			methods:{
+				getAnimal(){
+					var today = new Date();
+					var yyyy = today.getFullYear();
+					axios.get('/api/animals/'+this.$route.params.id,{
+						params:{
+							'select':this.select,
+							'date1':this.date1,
+							'date2':this.date2,
+							'order':this.order,
+							'statselect':this.statselect,
+							'statdate1':this.statdate1,
+							'statdate2':this.statdate2,
+						}
+					})
+					.then(res=>{
+						this.animal = res.data[0]
+						if(this.animal.weight == null){
+							this.animal.weight = null;
+						}
+						this.milks = res.data[1]
+						this.lastMilk = res.data[2]
+						this.milkStat = res.data[3]
+						if(!this.animal.image){
+							this.animal.image = 'https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png'
+						}
+						var year = this.animal.birth.slice(0,4)
+						this.animal.age = yyyy-year
+						this.form.earring = res.data[0].earring;
+						this.form.strap = res.data[0].strap;
+						this.form.name = res.data[0].name;
+						this.form.desc = res.data[0].desc;
+						this.form.type = res.data[0].type;
+						this.form.gender = res.data[0].gender;
+						this.form.birth = res.data[0].birth;
+						this.form.death = res.data[0].death;
+
+					})
+					.catch(err=>{
+						console.log(err)
+					})
+				},
+				orderr(){
+					if(this.order == true){
+						this.order = false
+					}else{
+						this.order = true
+					}
 					this.getAnimal()
 				},
-				methods:{
-					getAnimal(){
-						var today = new Date();
-						var yyyy = today.getFullYear();
-						axios.get('/api/animals/'+this.$route.params.id,{
-							params:{
-								'select':this.select,
-								'date1':this.date1,
-								'date2':this.date2,
-								'order':this.order,
-								'statselect':this.statselect,
-								'statdate1':this.statdate1,
-								'statdate2':this.statdate2,
-							}
-						})
-						.then(res=>{
-							this.animal = res.data[0]
-							if(this.animal.weight == null){
-								this.animal.weight = null;
-							}
-							this.milks = res.data[1]
-							this.lastMilk = res.data[2]
-							this.milkStat = res.data[3]
-							if(!this.animal.image){
-								this.animal.image = 'https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png'
-							}
-							var year = this.animal.birth.slice(0,4)
-							this.animal.age = yyyy-year
-							this.form.earring = res.data[0].earring;
-							this.form.strap = res.data[0].strap;
-							this.form.name = res.data[0].name;
-							this.form.desc = res.data[0].desc;
-							this.form.type = res.data[0].type;
-							this.form.gender = res.data[0].gender;
-							this.form.birth = res.data[0].birth;
-							this.form.death = res.data[0].death;
-
-						})
-						.catch(err=>{
-							console.log(err)
-						})
-					},
-					orderr(){
-						if(this.order == true){
-							this.order = false
-						}else{
-							this.order = true
-						}
+				isUploaded(e){
+					this.form.image = e.target.files[0]
+				},
+				updateAnimal(){
+					axios.post('/api/animals/'+this.$route.params.id+'/edit',{
+						'image':this.form.image,
+						'earring':this.form.earring,
+						'strap':this.form.strap,
+						'name':this.form.name,
+						'desc':this.form.desc,
+						'type':this.form.type,
+						'gender':this.form.gender,
+						'birth':this.form.birth,
+						'death':this.form.death,
+					})
+					.then(res=>{
 						this.getAnimal()
-					},
-					isUploaded(e){
-						this.form.image = e.target.files[0]
-					},
-					updateAnimal(){
-						axios.post('/api/animals/'+this.$route.params.id+'/edit',{
-							'image':this.form.image,
-							'earring':this.form.earring,
-							'strap':this.form.strap,
-							'name':this.form.name,
-							'desc':this.form.desc,
-							'type':this.form.type,
-							'gender':this.form.gender,
-							'birth':this.form.birth,
-							'death':this.form.death,
-						})
-						.then(res=>{
-							this.getAnimal()
-							this.message = true
-							this.error = []
-						})
-						.catch(err=>{
-							this.message = false
-							this.error=err.response.data.errors;
-						})
-					},
-					updateImage(){
-						const formData = new FormData
-						formData.set('image', this.form.image)
-						axios.post('/api/animals/'+this.$route.params.id+'/edit',formData)
-						.then(res=>{
-							this.getAnimal()
-							this.message = true
-							this.error = []
-						})
-						.catch(err=>{
-							this.message = false
-							this.error=err.response.data.errors;
-						})
-					},
-					resetDeath(){
-						this.form.death = ''
-					},
-					resetFilter(){
-						this.select = null
-						this.date1 = null
-						this.date2 = null
+						this.message = true
+						this.error = []
+					})
+					.catch(err=>{
+						this.message = false
+						this.error=err.response.data.errors;
+					})
+				},
+				updateImage(){
+					const formData = new FormData
+					formData.set('image', this.form.image)
+					axios.post('/api/animals/'+this.$route.params.id+'/edit',formData)
+					.then(res=>{
 						this.getAnimal()
-					},
-					resetStat(){
-						this.statselect = null
-						this.statdate1 = null
-						this.statdate2 = null
-					},
-					addMilk(){
-						axios.post('/api/animals/'+this.$route.params.id+'/addmilk',{
-							'user_id':this.animal.user_id,
-							'animal_id':this.animal.id,
-							'milk':this.form.milk,
-							'protein':this.form.protein,
-							'fat':this.form.fat,
-							'date':this.form.date,
-						})
-						.then(res=>{
-							this.getAnimal()
-							this.milkMessage = true
-							this.error = []
-						})
-						.catch(err=>{
-							this.message = false
-							this.error=err.response.data.errors;
-						})
-					},
-					deleteMilk(id){
-						axios.delete('/api/animals/'+id+'/deleteMilk')
-						.then(res=>{
-							this.getAnimal()
-							this.delMessage = true
-						})
-						.catch(err=>{
-							this.delMessage = false
-							console.log(err)
-						})
-
-					},
-
-				}
+						this.message = true
+						this.error = []
+					})
+					.catch(err=>{
+						this.message = false
+						this.error=err.response.data.errors;
+					})
+				},
+				resetDeath(){
+					this.form.death = ''
+				},
+				resetFilter(){
+					this.select = null
+					this.date1 = null
+					this.date2 = null
+					this.getAnimal()
+				},
+				resetStat(){
+					this.statselect = null
+					this.statdate1 = null
+					this.statdate2 = null
+				},
+				addMilk(){
+					axios.post('/api/animals/'+this.$route.params.id+'/addmilk',{
+						'user_id':this.animal.user_id,
+						'animal_id':this.animal.id,
+						'milk':this.form.milk,
+						'protein':this.form.protein,
+						'fat':this.form.fat,
+						'date':this.form.date,
+					})
+					.then(res=>{
+						this.getAnimal()
+						this.milkMessage = true
+						this.error = []
+					})
+					.catch(err=>{
+						this.message = false
+						this.error=err.response.data.errors;
+					})
+				},
+				deleteMilk(id){
+					axios.delete('/api/animals/'+id+'/deleteMilk')
+					.then(res=>{
+						this.getAnimal()
+						this.delMessage = true
+					})
+					.catch(err=>{
+						this.delMessage = false
+						console.log(err)
+					})
+				},
 			}
+		}
 
 
 		</script>

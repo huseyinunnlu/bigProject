@@ -63,7 +63,8 @@
 										</thead>
 										<tbody>
 											<tr v-for="animal in animals.data">
-												<td>{{animal.id}}</td>
+												<td v-if="animal.name">{{animal.name}}</td>
+												<td v-else>No Name</td>
 												<td>{{animal.earring}} / {{animal.strap}}</td>
 												<td>{{animal.gender}} / {{animal.type}}</td>
 												<td>{{animal.birth}} / {{animal.death}}</td>

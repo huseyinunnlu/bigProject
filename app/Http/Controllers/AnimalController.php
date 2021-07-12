@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Animal;
 use App\Models\Milk;
 use App\Models\Weight;
+use App\Models\Ration;
+use App\Models\Favorite;
+use App\Models\AnimalRat;
 use Carbon\Carbon;
 
 
@@ -90,7 +93,7 @@ class AnimalController extends Controller
         if($animal->weight == null){
             $animal->weight = null;
         }
-            $lastMilk = '';
+        $lastMilk = '';
         if($animal->gender == 'female'){
             $lastMilk = Milk::where('animal_id',$id)->orderBy('date','desc')->first();
         }
@@ -171,24 +174,63 @@ class AnimalController extends Controller
         return response()->json($weight);
     }
 
-    public function addWeight(Request $request,$id)
+    public function addWeight(Request $request)
     {
         $today = date("Y-m-d");
-        $request->validate([
-            'animal_id'=>'required',
-            'weight'=>'required',
-            'date'=>'required|date|before:'.$today,
-        ]);
-        if($request->istoday==false){
-            $date = $request->date;
-        }else{
-            $date = date("Y-m-d");
-        }
-        Weight::create([
-            'animal_id'=>$id,
-            'weight'=>$request->weight,
-            'date'=>$date,
-        ]);
-    }
+        if($request->istoday==true){
+           $request->date = $today; 
+       }
+       $request->validate([
+        'animal_id'=>'required',
+        'weight'=>'required',
+        'date'=>'required|date|before:'.$today,
+    ]);
+
+       Weight::create([
+        'animal_id'=>$request->animal_id,
+        'weight'=>$request->weight,
+        'date'=>$request->date,
+    ]);
+   }
+
+   public function getMyRats(Request $request)
+   {
+    $rats = Ration::where('user_id',$request->user_id)->with('type')->get();
+    return response()->json($rats);
+}
+
+public function getFavRats(Request $request)
+{
+    $rats = Favorite::where('user_id',$request->user_id)->with('favName.type')->get();
+    return response()->json($rats);
 
 }
+
+public function activeRat($id)
+{
+    $activeRat = AnimalRat::where('animal_id',$id)->with('name')->first();
+    return response()->json($activeRat);
+}
+
+public function addRat(Request $request,$id)
+{
+    $isRation = AnimalRat::where('animal_id',$id)->first();
+    if($isRation == null){
+        AnimalRat::create([
+            'animal_id'=>$id,
+            'ration_id'=>$request->ration_id
+        ]);
+    }else{
+       AnimalRat::where('animal_id',$id)->first()->update([
+        'animal_id'=>$id,
+        'ration_id'=>$request->ration_id
+    ]); 
+   }
+}
+
+public function delActiveRat($id)
+{
+    AnimalRat::whereId($id)->delete();
+}
+}
+

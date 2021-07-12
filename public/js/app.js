@@ -2894,6 +2894,177 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      myRats: [],
+      favRats: [],
+      activeRation: [],
+      message: false
+    };
+  },
+  props: ['userid', 'animalid', 'isdeath'],
+  created: function created() {
+    this.getMyRations();
+    this.getFavRations();
+    this.getActiveRation();
+  },
+  methods: {
+    getMyRations: function getMyRations() {
+      var _this = this;
+
+      axios.get('/api/myRats', {
+        params: {
+          user_id: this.userid
+        }
+      }).then(function (res) {
+        _this.myRats = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getFavRations: function getFavRations() {
+      var _this2 = this;
+
+      axios.get('/api/favRats', {
+        params: {
+          user_id: this.userid
+        }
+      }).then(function (res) {
+        _this2.favRats = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getActiveRation: function getActiveRation() {
+      var _this3 = this;
+
+      axios.get('/api/animals/' + this.$route.params.id + '/activerat').then(function (res) {
+        _this3.activeRation = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    updateRation: function updateRation(id) {
+      var _this4 = this;
+
+      axios.post('/api/animals/' + this.$route.params.id + '/addRat', {
+        'ration_id': id
+      }).then(function (res) {
+        _this4.getActiveRation();
+
+        _this4.message = true;
+      })["catch"](function (err) {
+        _this4.message = false;
+        console.log(err);
+      });
+    },
+    delActiveRation: function delActiveRation(id) {
+      var _this5 = this;
+
+      axios["delete"]('/api/activerat/' + id + '/delete').then(function (res) {
+        _this5.getActiveRation();
+
+        _this5.getMyRations();
+
+        _this5.getFavRations();
+
+        _this5.message = true;
+      })["catch"](function (err) {
+        console.log(err);
+        _this5.message = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2921,7 +3092,8 @@ __webpack_require__.r(__webpack_exports__);
     addWeight: function addWeight() {
       var _this2 = this;
 
-      axios.post('/api/animals/' + this.animalid + '/create', {
+      axios.post('/api/animals/weight/create', {
+        'animal_id': this.animalid,
         'weight': this.weight,
         'date': this.date,
         'istoday': this.istoday
@@ -2947,6 +3119,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -3501,6 +3676,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -5416,6 +5592,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.component('index', __webpack_require__(
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('content-component', __webpack_require__(/*! ./components/profile/content-component.vue */ "./resources/js/components/profile/content-component.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('users-list', __webpack_require__(/*! ./components/users/list.vue */ "./resources/js/components/users/list.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animals-list', __webpack_require__(/*! ./components/animals/list.vue */ "./resources/js/components/animals/list.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animalweight', __webpack_require__(/*! ./components/animals/animalweight.vue */ "./resources/js/components/animals/animalweight.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('animalration', __webpack_require__(/*! ./components/animals/animalration.vue */ "./resources/js/components/animals/animalration.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('rations-list', __webpack_require__(/*! ./components/admin-rations/list.vue */ "./resources/js/components/admin-rations/list.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('ration-create', __webpack_require__(/*! ./components/rations/create.vue */ "./resources/js/components/rations/create.vue").default);
@@ -41710,6 +41887,45 @@ component.options.__file = "resources/js/components/animals/animalration.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/animals/animalweight.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/animals/animalweight.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animalweight.vue?vue&type=template&id=2fe5b357& */ "./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357&");
+/* harmony import */ var _animalweight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animalweight.vue?vue&type=script&lang=js& */ "./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _animalweight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__.render,
+  _animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/animals/animalweight.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/animals/edit.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/animals/edit.vue ***!
@@ -42164,6 +42380,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_animalweight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./animalweight.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_animalweight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/animals/edit.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
   !*** ./resources/js/components/animals/edit.vue?vue&type=script&lang=js& ***!
@@ -42388,6 +42620,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalration_vue_vue_type_template_id_057b8522___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./animalration.vue?vue&type=template&id=057b8522& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalration.vue?vue&type=template&id=057b8522&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_animalweight_vue_vue_type_template_id_2fe5b357___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./animalweight.vue?vue&type=template&id=2fe5b357& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357&");
 
 
 /***/ }),
@@ -45699,6 +45948,226 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("\n\t\t\t\t\t\tActive Ration\n\t\t\t\t\t")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm.activeRation.id
+              ? _c("strong", [
+                  _c(
+                    "h3",
+                    { staticClass: "card-title" },
+                    [
+                      _vm._v(
+                        "Name: " +
+                          _vm._s(_vm.activeRation.name.name) +
+                          " \n\t\t\t\t\t\t\t"
+                      ),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-sm",
+                          attrs: {
+                            userid: _vm.userid,
+                            to: {
+                              name: "FrontRationsDetails",
+                              params: { id: _vm.activeRation.name.id }
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-eye" }),
+                          _vm._v(" Details")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          on: {
+                            click: function($event) {
+                              return _vm.delActiveRation(_vm.activeRation.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-times" })]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8" }, [
+        _vm.message == true
+          ? _c("div", { staticClass: "alert alert-success" }, [
+              _c("span", [_vm._v("Ration Updated Successfully")])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm float-right mt-1 mb-1",
+            on: {
+              click: function($event) {
+                _vm.getMyRations(), _vm.getFavRations()
+              }
+            }
+          },
+          [_vm._v("Get Rations")]
+        ),
+        _vm._v(" "),
+        _c("table", { staticClass: "table table-bordered mt-2 mb-2" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.myRats, function(rat) {
+              return _c("tr", { key: rat.id }, [
+                _c("td", [_vm._v(_vm._s(rat.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rat.type.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rat.energy))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rat.drym))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rat.protein))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-sm",
+                      on: {
+                        click: function($event) {
+                          return _vm.updateRation(rat.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Active")]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table table-bordered" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.favRats, function(fav) {
+              return _c("tr", { key: fav.id }, [
+                _c("td", [_vm._v(_vm._s(fav.fav_name.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(fav.fav_name.type.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(fav.fav_name.energy))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(fav.fav_name.drym))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(fav.fav_name.protein))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-sm",
+                      on: {
+                        click: function($event) {
+                          return _vm.updateRation(fav.ration_id)
+                        }
+                      }
+                    },
+                    [_vm._v("Active")]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Energy")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dry Matter")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Protein")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opr")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Energy")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dry Matter")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Protein")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opr")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/animalweight.vue?vue&type=template&id=2fe5b357& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
       _c("h3", { staticClass: "text-center" }, [
         _vm._v(
           "How The Calculate Animal's Live Weight with chest circumference."
@@ -46047,8 +46516,6 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header p-2" }, [
                 _c("ul", { staticClass: "nav nav-pills" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
                   _vm.animal.gender == "female"
                     ? _c("li", { staticClass: "nav-item" }, [
                         _c(
@@ -46061,6 +46528,21 @@ var render = function() {
                         )
                       ])
                     : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.animal.death
+                    ? _c("li", { staticClass: "nav-item" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: "#ration", "data-toggle": "tab" }
+                          },
+                          [_vm._v("Ration")]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._m(2),
                   _vm._v(" "),
                   _vm._m(3)
                 ])
@@ -46340,8 +46822,6 @@ var render = function() {
                                         _c("td", [_vm._v(_vm._s(milk.date))]),
                                         _vm._v(" "),
                                         _c("td", [
-                                          _vm._m(4, true),
-                                          _vm._v(" "),
                                           _c(
                                             "button",
                                             {
@@ -46546,7 +47026,7 @@ var render = function() {
                                         _c("p")
                                       ]),
                                       _vm._v(" "),
-                                      _vm._m(5)
+                                      _vm._m(4)
                                     ]
                                   )
                                 ])
@@ -46559,14 +47039,31 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "tab-pane", attrs: { id: "ration" } },
+                    { staticClass: "tab-pane", attrs: { id: "weight" } },
                     [
-                      _c("animalration", {
+                      _c("animalweight", {
                         attrs: {
                           animalid: _vm.animal.id,
                           isdeath: _vm.animal.death
                         }
                       })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "tab-pane", attrs: { id: "ration" } },
+                    [
+                      !_vm.animal.death
+                        ? _c("animalration", {
+                            attrs: {
+                              userid: _vm.animal.user_id,
+                              animalid: _vm.animal.id,
+                              isdeath: _vm.animal.death
+                            }
+                          })
+                        : _vm._e()
                     ],
                     1
                   ),
@@ -47045,7 +47542,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(6)
+                          _vm._m(5)
                         ]
                       )
                     ]
@@ -47076,7 +47573,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _vm.milkMessage == true
@@ -47262,7 +47759,7 @@ var render = function() {
                             staticClass: "btn btn-success btn-sm",
                             attrs: { type: "submit" }
                           },
-                          [_vm._v("Add Animal")]
+                          [_vm._v("Add Milk")]
                         )
                       ]
                     )
@@ -47302,9 +47799,9 @@ var staticRenderFns = [
         "a",
         {
           staticClass: "nav-link",
-          attrs: { href: "#ration", "data-toggle": "tab" }
+          attrs: { href: "#weight", "data-toggle": "tab" }
         },
-        [_vm._v("Ration & Weight")]
+        [_vm._v("Weight")]
       )
     ])
   },
@@ -47321,14 +47818,6 @@ var staticRenderFns = [
         },
         [_vm._v("Edit Animal")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-primary btn-sm" }, [
-      _c("i", { staticClass: "fas fa-pen" })
     ])
   },
   function() {
@@ -47644,7 +48133,9 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.animals.data, function(animal) {
                             return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(animal.id))]),
+                              animal.name
+                                ? _c("td", [_vm._v(_vm._s(animal.name))])
+                                : _c("td", [_vm._v("No Name")]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(

@@ -1,77 +1,153 @@
 <template>
 	<div>
 		<div class="row">
-			<h3 class="text-center">How The Calculate Animal's Live Weight with chest circumference.</h3>
-			<div class="col-md-8">
-				<p>
-					The table below has been prepared to give a general idea. Precise weight estimation is only possible by weighing. This table is important in terms of monitoring nutritional performance.
-					<br>
-					<span class="text danger">><h4>Important Note:</h4> For measurement, the animal must be standing on all fours and its head in a normal position.
-					</span><br>
-					<img class="mt-4 mb-4" :src="images[0]">
-					<img :src="images[1]">
-				</p>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header">
+						Active Ration
+					</div>
+					<div class="card-body">
+						<strong v-if="activeRation.id"><h3 class="card-title">Name: {{activeRation.name.name}} 
+							<router-link :userid="userid" :to="{
+								name: 'FrontRationsDetails',
+								params: {id:activeRation.name.id}
+							}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Details</router-link>
+							<button @click="delActiveRation(activeRation.id)" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></h3>
+						</strong>
+					</div>
+				</div>
+
 			</div>
-			<div class="col-md-3">
-				<div v-if="!isdeath">
-				<form @submit.prevent="addWeight">
-					<div class="form-group">
-						<label for="weight">Weight</label>
-						<input type="number" class="form-control form-control-sm" v-model="weight">
-					</div>
-					<div class="form-group">
-						<label for="weight">Date: </label>
-						<input v-if="istoday == false" type="date" class="form-control form-control-sm" v-model="date">
-						<label>Todays Date:</label> <input type="checkbox" @change="istoday=!istoday">
-					</div>
-					<button type="submit" class="btn btn-success btn-sm">Add Weight</button>
-				</form>
+			<div class="col-md-8">
+				<div class="alert alert-success" v-if="message == true">
+					<span>Ration Updated Successfully</span>
 				</div>
-				<div>
-					<ul>
-						<li v-for="weight in animalWeight">{{weight.weight}}(Kg) - {{weight.date}}</li>
-					</ul>
-				</div>
+				<button @click="getMyRations() , getFavRations()" class="btn btn-primary btn-sm float-right mt-1 mb-1">Get Rations</button>
+				<table class="table table-bordered mt-2 mb-2">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type Name</th>
+							<th>Energy</th>
+							<th>Dry Matter</th>
+							<th>Protein</th>
+							<th>Opr</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="rat in myRats" :key="rat.id">
+							<td>{{rat.name}}</td>
+							<td>{{rat.type.name}}</td>
+							<td>{{rat.energy}}</td>
+							<td>{{rat.drym}}</td>
+							<td>{{rat.protein}}</td>
+							<td><button @click="updateRation(rat.id)" class="btn btn-primary btn-sm">Active</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type Name</th>
+							<th>Energy</th>
+							<th>Dry Matter</th>
+							<th>Protein</th>
+							<th>Opr</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="fav in favRats" :key="fav.id">
+							<td>{{fav.fav_name.name}}</td>
+							<td>{{fav.fav_name.type.name}}</td>
+							<td>{{fav.fav_name.energy}}</td>
+							<td>{{fav.fav_name.drym}}</td>
+							<td>{{fav.fav_name.protein}}</td>
+							<td><button @click="updateRation(fav.ration_id)" class="btn btn-primary btn-sm">Active</button></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 <script>
-	export default{
+	export default {
 		data(){
 			return {
-				animalWeight:[],
-				weight:'',
-				date:null,
-				istoday:false,
-				images:['http://www.abmgrup.com.tr/images/icerik_resimleri/canli_agirlik_tahmin_cetveli.jpg','https://www.esk.gov.tr/upload/Node/10487/pics/c4eae0.450px.jpg'],
+				myRats:[],
+				favRats:[],
+				activeRation:[],
+				message :false,
 			}
 		},
-		props:['animalid','isdeath'],
+		props:['userid','animalid','isdeath'],
 		created(){
-			this.getWeight()
+			this.getMyRations()
+			this.getFavRations()
+			this.getActiveRation()
 		},
 		methods:{
-			getWeight(){
-				axios.get('/api/animals/'+this.animalid+'/weight')
+			getMyRations(){
+				axios.get('/api/myRats',{
+					params:{
+						user_id:this.userid,
+					}
+				})
 				.then(res=>{
-					this.animalWeight = res.data
+					this.myRats = res.data
 				})
 				.catch(err=>{
 					console.log(err)
 				})
 			},
-			addWeight(){
-				axios.post('/api/animals/'+this.animalid+'/create',{
-					'weight':this.weight,
-					'date':this.date,
-					'istoday':this.istoday,
+			getFavRations(){
+				axios.get('/api/favRats',{
+					params:{
+						user_id:this.userid,
+					}
 				})
 				.then(res=>{
-					this.getWeight()
+					this.favRats = res.data
 				})
 				.catch(err=>{
 					console.log(err)
+				})
+			},
+			getActiveRation(){
+				axios.get('/api/animals/'+this.$route.params.id+'/activerat')
+				.then(res=>{
+					this.activeRation = res.data
+				})
+				.catch(err=>{
+					console.log(err)
+				})
+			},
+			updateRation(id){
+				axios.post('/api/animals/'+this.$route.params.id+'/addRat',{
+					'ration_id':id
+				})
+				.then(res=>{
+					this.getActiveRation()
+					this.message = true
+				})
+				.catch(err=>{
+					this.message = false
+					console.log(err)
+				})
+			},
+			delActiveRation(id){
+				axios.delete('/api/activerat/'+id+'/delete')
+				.then(res=>{
+					this.getActiveRation()
+					this.getMyRations()
+					this.getFavRations()
+					this.message = true
+				})
+				.catch(err=>{
+					console.log(err)
+					this.message = false
 				})
 			}
 		}

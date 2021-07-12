@@ -7,6 +7,7 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\FRationController;
+use App\Http\Controllers\RationGuideController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
 		Route::get('/users', [UserController::class, 'index'])->name('users.index');
 		Route::get('/rations', [RationController::class, 'index'])->name('rations.index')->middleware('GoDashboard');
 	});
+	Route::get('/rations/guide', [RationGuideController::class, 'index'])->name('guide.index')->middleware('GoDashboard');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

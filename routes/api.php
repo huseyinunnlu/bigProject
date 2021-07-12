@@ -42,7 +42,13 @@ Route::post('/animals/{id}/edit', [AnimalController::class, 'update']);
 Route::post('/animals/{id}/addmilk', [AnimalController::class, 'storeMilk']);
 Route::delete('animals/{id}/deleteMilk', [AnimalController::class, 'destroyMilk']);
 Route::get('/animals/{id}/weight', [AnimalController::class, 'getWeight']);
-Route::post('/animals/{id}/create', [AnimalController::class, 'addWeight']);
+Route::post('/animals/weight/create', [AnimalController::class, 'addWeight']);
+//Animal Ration Desc
+Route::get('/myRats', [AnimalController::class, 'getMyRats']);
+Route::get('/favRats', [AnimalController::class, 'getFavRats']);
+Route::get('/animals/{id}/activerat', [AnimalController::class, 'activeRat']);
+Route::post('/animals/{id}/addRat', [AnimalController::class, 'addRat']);
+Route::delete('/activerat/{id}/delete', [AnimalController::class, 'delActiveRat']);
 //Ration,
 //ration Food
 Route::get('/rations/getfood', [RationController::class, 'getFoods']);
@@ -69,3 +75,4 @@ Route::get('/ration/myfav', [FRationController::class, 'myFav']);
 Route::delete('/ration/myfav/{id}/delete', [FRationController::class, 'deleteFav']);
 Route::get('/ration/{id}/get', [FRationController::class, 'getRat']);
 Route::post('/ration/{id}/update', [FRationController::class, 'updateRation']);
+
