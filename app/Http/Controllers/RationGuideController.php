@@ -26,8 +26,8 @@ class RationGuideController extends Controller
                 $food->price = $food->price = $guide->count;
                 $sumprice = $sumprice + $food->price;
             }
-        $guide->sumprice = $sumprice;
-        $guide->foodCount = count($guide->name->food);
+            $guide->sumprice = $sumprice;
+            $guide->foodCount = count($guide->name->food);
         }
         return view('rations.guide',compact('user','guides'));
     }

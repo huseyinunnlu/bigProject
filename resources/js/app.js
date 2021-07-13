@@ -10,8 +10,13 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {routes} from './routes';
 import CKEditor from 'ckeditor4-vue';
+import Dropdown from 'vue-simple-search-dropdown';
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+
+Vue.use(Dropdown);
 Vue.use(VueRouter);
 Vue.use( CKEditor );
+Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
 Vue.component('index', require('./components/profile/index.vue').default);
 Vue.component('content-component', require('./components/profile/content-component.vue').default);
 Vue.component('users-list', require('./components/users/list.vue').default);

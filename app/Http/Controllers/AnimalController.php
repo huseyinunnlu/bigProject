@@ -111,7 +111,10 @@ class AnimalController extends Controller
         }else{
             $milkStat = 'No Data';
         }
-        return response()->json([$animal,$milk,$lastMilk,$milkStat]);
+        $mounthdate1 =  date("Y-m-1");
+        $mounthdate2 =  date("Y-m-31");
+        $mounthMilk = Milk::where('animal_id',$id)->whereBetween('date',[$mounthdate1,$mounthdate2])->get();
+        return response()->json([$animal,$milk,$lastMilk,$milkStat,$mounthMilk]);
     }
 
     public function update(Request $request,$id)

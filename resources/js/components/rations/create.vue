@@ -279,219 +279,219 @@
 </template>
 <script>
 
-	export default{
-		data(){
-			return {
-				types:[],
-				foods:[],
-				selectedType:[],
-				rat_type_id:null,
-				form:{
-					name:'',
-					energy:0,
-					protein:0,
-					drym:0,
-					ca:0,
-					p:0,
-					nacl:0,
-					desc:'',
-					food1:null,
-					food2:null,
-					food3:null,
-					food4:null,
-					food5:null,
-					food6:null,
-					food7:null,
-					food8:null,
-					food9:null,
-					food10:null,
-					food11:null,
-					food12:null,
-					foodAmount1:0,
-					foodAmount2:0,
-					foodAmount3:0,
-					foodAmount4:0,
-					foodAmount5:0,
-					foodAmount6:0,
-					foodAmount7:0,
-					foodAmount8:0,
-					foodAmount9:0,
-					foodAmount10:0,
-					foodAmount11:0,
-					foodAmount12:0,
-					foodPrice1:0,
-					foodPrice2:0,
-					foodPrice3:0,
-					foodPrice4:0,
-					foodPrice5:0,
-					foodPrice6:0,
-					foodPrice7:0,
-					foodPrice8:0,
-					foodPrice9:0,
-					foodPrice10:0,
-					foodPrice11:0,
-					foodPrice12:0,
-				},
-				sumfood:0,
-				avgPrice:0,
-				message: false,
-				error:[],
-			}
+export default{
+	data(){
+		return {
+			types:[],
+			foods:[],
+			selectedType:[],
+			rat_type_id:null,
+			form:{
+				name:'',
+				energy:0,
+				protein:0,
+				drym:0,
+				ca:0,
+				p:0,
+				nacl:0,
+				desc:'',
+				food1:null,
+				food2:null,
+				food3:null,
+				food4:null,
+				food5:null,
+				food6:null,
+				food7:null,
+				food8:null,
+				food9:null,
+				food10:null,
+				food11:null,
+				food12:null,
+				foodAmount1:0,
+				foodAmount2:0,
+				foodAmount3:0,
+				foodAmount4:0,
+				foodAmount5:0,
+				foodAmount6:0,
+				foodAmount7:0,
+				foodAmount8:0,
+				foodAmount9:0,
+				foodAmount10:0,
+				foodAmount11:0,
+				foodAmount12:0,
+				foodPrice1:0,
+				foodPrice2:0,
+				foodPrice3:0,
+				foodPrice4:0,
+				foodPrice5:0,
+				foodPrice6:0,
+				foodPrice7:0,
+				foodPrice8:0,
+				foodPrice9:0,
+				foodPrice10:0,
+				foodPrice11:0,
+				foodPrice12:0,
+			},
+			sumfood:0,
+			avgPrice:0,
+			message: false,
+			error:[],
+		}
+	},
+	props:['userid'],
+	created(){
+		this.getType()
+		this.getFood()
+	},
+	methods:{
+		getType(){
+			axios.get('/api/rations/gettype')
+			.then(res=>{
+				this.types = res.data
+			})
+			.catch(err=>{
+				console.log(err)
+			})
 		},
-		props:['userid'],
-		created(){
-			this.getType()
-			this.getFood()
+		getFood(){
+			axios.get('/api/rations/getfood')
+			.then(res=>{
+				this.foods = res.data
+			})
+			.catch(err=>{
+				console.log(err)
+			})
 		},
-		methods:{
-			getType(){
-				axios.get('/api/rations/gettype')
-				.then(res=>{
-					this.types = res.data
-				})
-				.catch(err=>{
-					console.log(err)
-				})
-			},
-			getFood(){
-				axios.get('/api/rations/getfood')
-				.then(res=>{
-					this.foods = res.data
-				})
-				.catch(err=>{
-					console.log(err)
-				})
-			},
-			getSelectedType(){
-				axios.get('/api/rations/selectedtype',{
-					params:{
-						id:this.rat_type_id,
-					}
-				})
-				.then(res=>{
-					this.selectedType = res.data
-				})
-				.catch(err=>{
-					console.log(err)
-				})
-			},
-			sumFood(){
-				this.sumfood = parseInt(this.form.foodAmount1) + parseInt(this.form.foodAmount2) + parseInt(this.form.foodAmount3) + parseInt(this.form.foodAmount4) + parseInt(this.form.foodAmount5) + parseInt(this.form.foodAmount6) + parseInt(this.form.foodAmount7) + parseInt(this.form.foodAmount8) + parseInt(this.form.foodAmount9) + parseInt(this.form.foodAmount10) + parseInt(this.form.foodAmount11) + parseInt(this.form.foodAmount12);
-			},
-			price(){
-				var sumPrice = parseInt(this.form.foodPrice1) + parseInt(this.form.foodPrice2) + parseInt(this.form.foodPrice3) + parseInt(this.form.foodPrice4) + parseInt(this.form.foodPrice5) + parseInt(this.form.foodPrice6) + parseInt(this.form.foodPrice7) + parseInt(this.form.foodPrice8) + parseInt(this.form.foodPrice9) + parseInt(this.form.foodPrice10) + parseInt(this.form.foodPrice11) + parseInt(this.form.foodPrice12);
-				this.avgPrice = parseInt(this.sumfood) / sumPrice;
-			},
-			addRation(){
-				if(this.sumfood == 0){
-					this.sumfood = null
+		getSelectedType(){
+			axios.get('/api/rations/selectedtype',{
+				params:{
+					id:this.rat_type_id,
 				}
-				axios.post('/api/rations/addration',{
-					'name':this.form.name,
-					'user_id':this.userid,
-					'rat_type_id':this.rat_type_id,
-					'desc':this.form.desc,
-					'energy':this.form.energy,
-					'protein':this.form.protein,
-					'drym':this.form.drym,
-					'ca':this.form.ca,
-					'p':this.form.p,
-					'nacl':this.form.nacl,
-					'sumfood':this.sumfood,
-					'price':this.avgPrice,
-					'food1':this.form.food1,
-					'food2':this.form.food2,
-					'food3':this.form.food3,
-					'food4':this.form.food4,
-					'food5':this.form.food5,
-					'food6':this.form.food6,
-					'food7':this.form.food7,
-					'food8':this.form.food8,
-					'food9':this.form.food9,
-					'food10':this.form.food10,
-					'food11':this.form.food11,
-					'food12':this.form.food12,
-					'foodAmount1':this.form.foodAmount1,
-					'foodAmount2':this.form.foodAmount2,
-					'foodAmount3':this.form.foodAmount3,
-					'foodAmount4':this.form.foodAmount4,
-					'foodAmount5':this.form.foodAmount5,
-					'foodAmount6':this.form.foodAmount6,
-					'foodAmount7':this.form.foodAmount7,
-					'foodAmount8':this.form.foodAmount8,
-					'foodAmount9':this.form.foodAmount9,
-					'foodAmount10':this.form.foodAmount10,
-					'foodAmount11':this.form.foodAmount11,
-					'foodAmount12':this.form.foodAmount12,
-					'foodPrice1':this.form.foodPrice1,
-					'foodPrice2':this.form.foodPrice2,
-					'foodPrice3':this.form.foodPrice3,
-					'foodPrice4':this.form.foodPrice4,
-					'foodPrice5':this.form.foodPrice5,
-					'foodPrice6':this.form.foodPrice6,
-					'foodPrice7':this.form.foodPrice7,
-					'foodPrice8':this.form.foodPrice8,
-					'foodPrice9':this.form.foodPrice9,
-					'foodPrice10':this.form.foodPrice10,
-					'foodPrice12':this.form.foodPrice12,
-					'foodPrice12':this.form.foodPrice12,
-				})
-				.then(res=>{
-					$('#successModal').modal('show');
-				})
-				.catch(err=>{
-					this.error = err.response.data.errors;
-					console.log(err)
-				})
-			},
-			resetFields(){
-				this.form.name = ''
-				this.form.energy = 0
-				this.form.protein = 0
-				this.form.drym = 0
-				this.form.ca = 0
-				this.form.p = 0
-				this.form.nacl = 0
-				this.form.desc = ''
-				this.form.food1 = null
-				this.form.food2 = null
-				this.form.food3 = null
-				this.form.food4 = null
-				this.form.food5 = null
-				this.form.food6 = null
-				this.form.food7 = null
-				this.form.food8 = null
-				this.form.food9 = null
-				this.form.food10 = null
-				this.form.food11 = null
-				this.form.food12 = null
-				this.form.foodAmount1 = 0
-				this.form.foodAmount2 = 0
-				this.form.foodAmount3 = 0
-				this.form.foodAmount4 = 0
-				this.form.foodAmount5 = 0
-				this.form.foodAmount6 = 0
-				this.form.foodAmount7 = 0
-				this.form.foodAmount8 = 0
-				this.form.foodAmount9 = 0
-				this.form.foodAmount10 = 0
-				this.form.foodAmount11 = 0
-				this.form.foodAmount12 = 0
-				this.form.foodPrice1 = 0
-				this.form.foodPrice2 = 0
-				this.form.foodPrice3 = 0
-				this.form.foodPrice4 = 0
-				this.form.foodPrice5 = 0
-				this.form.foodPrice6 = 0
-				this.form.foodPrice7 = 0
-				this.form.foodPrice8 = 0
-				this.form.foodPrice9 = 0
-				this.form.foodPrice10 = 0
-				this.form.foodPrice11 = 0
-				this.form.foodPrice12 = 0
-				this.sumfood = 0
-				this.avgPrice = 0
+			})
+			.then(res=>{
+				this.selectedType = res.data
+			})
+			.catch(err=>{
+				console.log(err)
+			})
+		},
+		sumFood(){
+			this.sumfood = parseInt(this.form.foodAmount1) + parseInt(this.form.foodAmount2) + parseInt(this.form.foodAmount3) + parseInt(this.form.foodAmount4) + parseInt(this.form.foodAmount5) + parseInt(this.form.foodAmount6) + parseInt(this.form.foodAmount7) + parseInt(this.form.foodAmount8) + parseInt(this.form.foodAmount9) + parseInt(this.form.foodAmount10) + parseInt(this.form.foodAmount11) + parseInt(this.form.foodAmount12);
+		},
+		price(){
+			var sumPrice = parseInt(this.form.foodPrice1) + parseInt(this.form.foodPrice2) + parseInt(this.form.foodPrice3) + parseInt(this.form.foodPrice4) + parseInt(this.form.foodPrice5) + parseInt(this.form.foodPrice6) + parseInt(this.form.foodPrice7) + parseInt(this.form.foodPrice8) + parseInt(this.form.foodPrice9) + parseInt(this.form.foodPrice10) + parseInt(this.form.foodPrice11) + parseInt(this.form.foodPrice12);
+			this.avgPrice = parseInt(this.sumfood) / sumPrice;
+		},
+		addRation(){
+			if(this.sumfood == 0){
+				this.sumfood = null
 			}
+			axios.post('/api/rations/addration',{
+				'name':this.form.name,
+				'user_id':this.userid,
+				'rat_type_id':this.rat_type_id,
+				'desc':this.form.desc,
+				'energy':this.form.energy,
+				'protein':this.form.protein,
+				'drym':this.form.drym,
+				'ca':this.form.ca,
+				'p':this.form.p,
+				'nacl':this.form.nacl,
+				'sumfood':this.sumfood,
+				'price':this.avgPrice,
+				'food1':this.form.food1,
+				'food2':this.form.food2,
+				'food3':this.form.food3,
+				'food4':this.form.food4,
+				'food5':this.form.food5,
+				'food6':this.form.food6,
+				'food7':this.form.food7,
+				'food8':this.form.food8,
+				'food9':this.form.food9,
+				'food10':this.form.food10,
+				'food11':this.form.food11,
+				'food12':this.form.food12,
+				'foodAmount1':this.form.foodAmount1,
+				'foodAmount2':this.form.foodAmount2,
+				'foodAmount3':this.form.foodAmount3,
+				'foodAmount4':this.form.foodAmount4,
+				'foodAmount5':this.form.foodAmount5,
+				'foodAmount6':this.form.foodAmount6,
+				'foodAmount7':this.form.foodAmount7,
+				'foodAmount8':this.form.foodAmount8,
+				'foodAmount9':this.form.foodAmount9,
+				'foodAmount10':this.form.foodAmount10,
+				'foodAmount11':this.form.foodAmount11,
+				'foodAmount12':this.form.foodAmount12,
+				'foodPrice1':this.form.foodPrice1,
+				'foodPrice2':this.form.foodPrice2,
+				'foodPrice3':this.form.foodPrice3,
+				'foodPrice4':this.form.foodPrice4,
+				'foodPrice5':this.form.foodPrice5,
+				'foodPrice6':this.form.foodPrice6,
+				'foodPrice7':this.form.foodPrice7,
+				'foodPrice8':this.form.foodPrice8,
+				'foodPrice9':this.form.foodPrice9,
+				'foodPrice10':this.form.foodPrice10,
+				'foodPrice12':this.form.foodPrice12,
+				'foodPrice12':this.form.foodPrice12,
+			})
+			.then(res=>{
+				$('#successModal').modal('show');
+			})
+			.catch(err=>{
+				this.error = err.response.data.errors;
+				console.log(err)
+			})
+		},
+		resetFields(){
+			this.form.name = ''
+			this.form.energy = 0
+			this.form.protein = 0
+			this.form.drym = 0
+			this.form.ca = 0
+			this.form.p = 0
+			this.form.nacl = 0
+			this.form.desc = ''
+			this.form.food1 = null
+			this.form.food2 = null
+			this.form.food3 = null
+			this.form.food4 = null
+			this.form.food5 = null
+			this.form.food6 = null
+			this.form.food7 = null
+			this.form.food8 = null
+			this.form.food9 = null
+			this.form.food10 = null
+			this.form.food11 = null
+			this.form.food12 = null
+			this.form.foodAmount1 = 0
+			this.form.foodAmount2 = 0
+			this.form.foodAmount3 = 0
+			this.form.foodAmount4 = 0
+			this.form.foodAmount5 = 0
+			this.form.foodAmount6 = 0
+			this.form.foodAmount7 = 0
+			this.form.foodAmount8 = 0
+			this.form.foodAmount9 = 0
+			this.form.foodAmount10 = 0
+			this.form.foodAmount11 = 0
+			this.form.foodAmount12 = 0
+			this.form.foodPrice1 = 0
+			this.form.foodPrice2 = 0
+			this.form.foodPrice3 = 0
+			this.form.foodPrice4 = 0
+			this.form.foodPrice5 = 0
+			this.form.foodPrice6 = 0
+			this.form.foodPrice7 = 0
+			this.form.foodPrice8 = 0
+			this.form.foodPrice9 = 0
+			this.form.foodPrice10 = 0
+			this.form.foodPrice11 = 0
+			this.form.foodPrice12 = 0
+			this.sumfood = 0
+			this.avgPrice = 0
 		}
 	}
+}
 </script>
