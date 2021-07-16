@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\FRationController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,4 +76,7 @@ Route::get('/ration/myfav', [FRationController::class, 'myFav']);
 Route::delete('/ration/myfav/{id}/delete', [FRationController::class, 'deleteFav']);
 Route::get('/ration/{id}/get', [FRationController::class, 'getRat']);
 Route::post('/ration/{id}/update', [FRationController::class, 'updateRation']);
+//Contact
+Route::get('/adminpanel/contact/get ', [IndexController::class, 'adminGetContacts']);
+Route::post('/adminpanel/contact/addAnswer ', [IndexController::class, 'apiAnswerStore']);
 

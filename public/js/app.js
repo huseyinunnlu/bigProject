@@ -3947,6 +3947,157 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      messages: [],
+      form: {
+        message: ''
+      },
+      sMessage: false,
+      error: [],
+      userimg: 'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
+      useralt: 'user-img'
+    };
+  },
+  props: ['userid'],
+  created: function created() {
+    this.getAdminContacts();
+  },
+  methods: {
+    getAdminContacts: function getAdminContacts() {
+      var _this = this;
+
+      axios.get('/api/adminpanel/contact/get').then(function (res) {
+        _this.messages = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    addAnswer: function addAnswer(id) {
+      var _this2 = this;
+
+      axios.post('/api/adminpanel/contact/addAnswer', {
+        'user_id': this.userid,
+        'contact_id': id,
+        'message': this.form.message
+      }).then(function (res) {
+        _this2.getAdminContacts();
+
+        _this2.sMessage = true;
+      })["catch"](function (err) {
+        _this2.error = err.response.data.errors;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/profile/content-component.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/profile/content-component.vue?vue&type=script&lang=js& ***!
@@ -5640,6 +5791,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__.default.component('rations-list', __webpack_req
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('ration-create', __webpack_require__(/*! ./components/rations/create.vue */ "./resources/js/components/rations/create.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('list-food', __webpack_require__(/*! ./components/rations/listFood.vue */ "./resources/js/components/rations/listFood.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('front-rations-list', __webpack_require__(/*! ./components/rations/list.vue */ "./resources/js/components/rations/list.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('contact', __webpack_require__(/*! ./components/contact.vue */ "./resources/js/components/contact.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43900,6 +44052,45 @@ component.options.__file = "resources/js/components/animals/list.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/contact.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/contact.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./contact.vue?vue&type=template&id=768395a5& */ "./resources/js/components/contact.vue?vue&type=template&id=768395a5&");
+/* harmony import */ var _contact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contact.vue?vue&type=script&lang=js& */ "./resources/js/components/contact.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _contact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__.render,
+  _contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/contact.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/profile/content-component.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/components/profile/content-component.vue ***!
@@ -44324,6 +44515,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/contact.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/contact.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_contact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./contact.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_contact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/profile/content-component.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************!*\
   !*** ./resources/js/components/profile/content-component.vue?vue&type=script&lang=js& ***!
@@ -44679,6 +44886,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_template_id_383852fe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_list_vue_vue_type_template_id_383852fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./list.vue?vue&type=template&id=383852fe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/animals/list.vue?vue&type=template&id=383852fe&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/contact.vue?vue&type=template&id=768395a5&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/contact.vue?vue&type=template&id=768395a5& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_contact_vue_vue_type_template_id_768395a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./contact.vue?vue&type=template&id=768395a5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=template&id=768395a5&");
 
 
 /***/ }),
@@ -50912,6 +51136,461 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=template&id=768395a5&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/contact.vue?vue&type=template&id=768395a5& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-body row" }, [
+          _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v("Last Sended Messages\n\t\t\t\t\t\t\t\t"),
+                  _vm.sMessage == true
+                    ? _c("span", { staticClass: "text-success" }, [
+                        _vm._v("Message Answered Successfully")
+                      ])
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-bordered table-hover table-responsive"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.messages, function(message) {
+                        return _vm.messages
+                          ? _c(
+                              "div",
+                              { key: message.id, staticClass: "message" },
+                              [
+                                _c(
+                                  "tr",
+                                  {
+                                    attrs: {
+                                      "data-widget": "expandable-table",
+                                      "aria-expanded": "false"
+                                    }
+                                  },
+                                  [
+                                    _c("td", [_vm._v(_vm._s(message.subject))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(message.type))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      message.status == "answered"
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-success"
+                                            },
+                                            [
+                                              _vm._v("Answered "),
+                                              _c("i", {
+                                                staticClass: "fas fa-check"
+                                              })
+                                            ]
+                                          )
+                                        : _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-danger"
+                                            },
+                                            [
+                                              _vm._v("Unanswered "),
+                                              _c("i", {
+                                                staticClass: "fas fa-times"
+                                              })
+                                            ]
+                                          )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(message.created_at))
+                                    ]),
+                                    _vm._v(" "),
+                                    message.message.length > 20
+                                      ? _c("td", {
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              message.message.slice(0, 20)
+                                            )
+                                          }
+                                        })
+                                      : _c("td", {
+                                          domProps: {
+                                            innerHTML: _vm._s(message.message)
+                                          }
+                                        })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "expandable-body" }, [
+                                  _c(
+                                    "td",
+                                    { attrs: { colspan: "6" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "direct-chat-msg right"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "direct-chat-infos clearfix"
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "direct-chat-name float-right"
+                                                },
+                                                [_vm._v("Me")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "direct-chat-timestamp float-left"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(message.created_at)
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("img", {
+                                            staticClass: "direct-chat-img",
+                                            attrs: {
+                                              src: _vm.userimg,
+                                              alt: _vm.useralt
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("div", {
+                                            staticClass: "direct-chat-text",
+                                            domProps: {
+                                              innerHTML: _vm._s(message.message)
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(message.answer, function(answer) {
+                                        return message.answer
+                                          ? _c(
+                                              "div",
+                                              {
+                                                key: answer.key,
+                                                staticClass: "answer"
+                                              },
+                                              [
+                                                answer.user_id == _vm.userid
+                                                  ? _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "direct-chat-msg right"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "direct-chat-infos clearfix"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "direct-chat-name float-right"
+                                                              },
+                                                              [_vm._v("Me")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "direct-chat-timestamp float-left"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    answer.created_at
+                                                                  )
+                                                                )
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("img", {
+                                                          staticClass:
+                                                            "direct-chat-img",
+                                                          attrs: {
+                                                            src: _vm.userimg,
+                                                            alt: _vm.useralt
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("div", {
+                                                          staticClass:
+                                                            "direct-chat-text",
+                                                          domProps: {
+                                                            innerHTML: _vm._s(
+                                                              answer.message
+                                                            )
+                                                          }
+                                                        })
+                                                      ]
+                                                    )
+                                                  : _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "direct-chat-msg"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "direct-chat-infos clearfix"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "direct-chat-name float-left"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Admin or Moderator"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "direct-chat-timestamp float-right"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    answer.created_at
+                                                                  )
+                                                                )
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("img", {
+                                                          staticClass:
+                                                            "direct-chat-img",
+                                                          attrs: {
+                                                            src: _vm.userimg,
+                                                            alt: _vm.useralt
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("div", {
+                                                          staticClass:
+                                                            "direct-chat-text",
+                                                          domProps: {
+                                                            innerHTML: _vm._s(
+                                                              answer.message
+                                                            )
+                                                          }
+                                                        })
+                                                      ]
+                                                    )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "card-footer" },
+                                        [
+                                          _c(
+                                            "form",
+                                            {
+                                              on: {
+                                                submit: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.addAnswer(
+                                                    message.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "input-group" },
+                                                [
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value: _vm.form.message,
+                                                        expression:
+                                                          "form.message"
+                                                      }
+                                                    ],
+                                                    staticClass:
+                                                      "form-control form-control-sm",
+                                                    attrs: {
+                                                      type: "text",
+                                                      placeholder:
+                                                        "Type Message ..."
+                                                    },
+                                                    domProps: {
+                                                      value: _vm.form.message
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "message",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _vm.error.message
+                                                    ? _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "text text-danger"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              _vm.error
+                                                                .message[0]
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  _vm._m(1, true)
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("small", {
+                                                staticClass: "text-danger"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    2
+                                  )
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Subject")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Message")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-sm", attrs: { type: "submit" } },
+        [_vm._v("Send")]
       )
     ])
   }

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Animal;
 use App\Models\Milk;
+use App\Models\Contact;
+use App\Models\Answer;
+
 class IndexController extends Controller
 {   
     public function welcome()
@@ -41,5 +44,89 @@ class IndexController extends Controller
         $sumMounthMilk = Milk::where('user_id',Auth::user()->id)->whereBetween('date',[$mounth1 , $mounth2])->sum('milk');
         $sumYearMilk = Milk::where('user_id',Auth::user()->id)->whereBetween('date',[$year1 , $year2])->sum('milk');
         return view('dashboard',compact('user','animalCount','sumDayMilk','sumMounthMilk','sumYearMilk'));
+    }
+
+    public function contact()
+    {
+        $user = User::whereId(Auth::user()->id)->with('desc')->first();
+        $messages = Contact::where('user_id',Auth()->user()->id)->with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->get();
+        return view('contact', compact('user','messages'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'subject'=>'required|max:100',
+            'type'=>'required',
+            'message'=>'required|max:255',
+        ]);
+        if(Auth()->user())
+            Contact::create([
+                'user_id'=>Auth()->user()->id,
+                'type'=>$request->type,
+                'subject'=>$request->subject,
+                'message'=>$request->message,
+            ]);
+
+        return redirect()->route('contact.index')->withsuccess('Message Sended Successfully');
+    }
+
+    public function answerStore(Request $request)
+    {
+        $request->validate([
+            'contact_id'=>'required',
+            'message'=>'required|max:255',
+        ]);
+        $userid = Contact::whereId($request->contact_id)->select('user_id')->first();
+        Answer::create([
+            'user_id'=>Auth()->user()->id,
+            'contact_id'=>$request->contact_id,
+            'message'=>$request->message,
+        ]);
+
+        if(Auth()->user()->type == 'admin' || Auth()->user()->type == 'moderator'){
+            if(Auth()->user()->id != $userid->user_id){
+                Contact::whereId($request->contact_id)->first()->update([
+                    'status'=>'answered',
+                ]);
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function adminContactIndex()
+    {
+        $user = User::whereId(Auth::user()->id)->with('desc')->first();
+        return view('adminpanel.contact', compact('user'));
+    }
+
+    public function adminGetContacts()
+    {
+        $messages = Contact::with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->get();
+        return response()->json($messages);
+    }
+
+    public function apiAnswerStore(Request $request)
+    {
+        $request->validate([
+            'user_id'=>'required',
+            'contact_id'=>'required',
+            'message'=>'required|max:255',
+        ]);
+        $userid = Contact::whereId($request->contact_id)->with('user')->first();
+        Answer::create([
+            'user_id'=>$request->user_id,
+            'contact_id'=>$request->contact_id,
+            'message'=>$request->message,
+        ]);
+
+        
+        if ($userid->user->type == 'admin' || $userid->user->type == 'moderator') {
+            if ($request->user_id != $userid->user_id) {
+                Contact::whereId($request->contact_id)->first()->update([
+                    'status'=>'answered',
+                ]); 
+            }
+        }
     }
 }

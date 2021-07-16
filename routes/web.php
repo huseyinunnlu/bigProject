@@ -31,8 +31,12 @@ Route::middleware('auth')->group(function () {
 	Route::middleware('isAdmin')->prefix('adminpanel')->group(function () {
 		Route::get('/users', [UserController::class, 'index'])->name('users.index');
 		Route::get('/rations', [RationController::class, 'index'])->name('rations.index')->middleware('GoDashboard');
+		Route::get('/contact', [IndexController::class, 'adminContactIndex'])->name('admin.contact.index')->middleware('GoDashboard');
 	});
 	Route::get('/rations/guide', [RationGuideController::class, 'index'])->name('guide.index')->middleware('GoDashboard');
+	Route::get('/contact', [IndexController::class, 'contact'])->name('contact.index')->middleware('GoDashboard');
+	Route::post('/contact/store', [IndexController::class, 'store'])->name('contact.store')->middleware('GoDashboard');
+	Route::post('/answer/store', [IndexController::class, 'answerStore'])->name('answer.store')->middleware('GoDashboard');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

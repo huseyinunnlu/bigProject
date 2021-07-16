@@ -36,6 +36,9 @@
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="{{ route('contact.index') }}" class="nav-link" href="#">Contact</a>
+				</li>
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -148,6 +151,12 @@
 								<a href="{{ route('rations.index') }}" class="nav-link">
 									<i class="far fa-user nav-icon"></i>
 									<p>Ration Food and Type</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ route('admin.contact.index') }}" class="nav-link">
+									<i class="far fa-envelope nav-icon"></i>
+									<p>Contact</p>
 								</a>
 							</li>
 						</ul>
