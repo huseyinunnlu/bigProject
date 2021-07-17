@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Follow;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -64,4 +66,10 @@ class User extends Authenticatable
     public function desc(){
         return $this->hasOne('App\Models\UserDesc');
     }
+
+    public function follow()
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
 }

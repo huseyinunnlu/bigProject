@@ -4051,10 +4051,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      messages: [],
+      messages: {},
       form: {
         message: ''
       },
@@ -4072,7 +4073,8 @@ __webpack_require__.r(__webpack_exports__);
     getAdminContacts: function getAdminContacts() {
       var _this = this;
 
-      axios.get('/api/adminpanel/contact/get').then(function (res) {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get('/api/adminpanel/contact/get?page=' + page).then(function (res) {
         _this.messages = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -4352,11 +4354,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4370,7 +4367,9 @@ __webpack_require__.r(__webpack_exports__);
         gender: ''
       },
       descMessage: false,
-      error: []
+      error: [],
+      isFollowed: false,
+      isFollowId: ''
     };
   },
   props: ['userid', 'auth'],
@@ -4385,6 +4384,13 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/profile/' + this.userid).then(function (res) {
         _this.user = res.data;
+
+        for (var i = 0; i <= _this.user.follow.length - 1; i++) {
+          if (_this.user.follow[i].follower_id == _this.auth) {
+            _this.isFollowed = true;
+            _this.isFollowId = _this.user.follow[i].id;
+          }
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4453,6 +4459,33 @@ __webpack_require__.r(__webpack_exports__);
         _this5.descMessage = true;
       })["catch"](function (err) {
         _this5.error = err.response.data.errors;
+        console.log(err);
+      });
+    },
+    follow: function follow() {
+      var _this6 = this;
+
+      axios.post('/api/follow', {
+        'following_id': this.user.id,
+        'follower_id': this.auth
+      }).then(function (res) {
+        _this6.getUser();
+
+        _this6.getDesc();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    unfollow: function unfollow() {
+      var _this7 = this;
+
+      axios["delete"]('/api/unfollow/' + this.isFollowId).then(function (res) {
+        _this7.getUser();
+
+        _this7.getDesc();
+
+        _this7.isFollowed = false;
+      })["catch"](function (err) {
         console.log(err);
       });
     }
@@ -51179,383 +51212,422 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-bordered table-hover table-responsive"
-                  },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.messages, function(message) {
-                        return _vm.messages
-                          ? _c(
-                              "div",
-                              { key: message.id, staticClass: "message" },
-                              [
-                                _c(
-                                  "tr",
-                                  {
-                                    attrs: {
-                                      "data-widget": "expandable-table",
-                                      "aria-expanded": "false"
-                                    }
-                                  },
-                                  [
-                                    _c("td", [_vm._v(_vm._s(message.subject))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(message.type))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      message.status == "answered"
-                                        ? _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-success"
-                                            },
-                                            [
-                                              _vm._v("Answered "),
-                                              _c("i", {
-                                                staticClass: "fas fa-check"
-                                              })
-                                            ]
-                                          )
-                                        : _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-danger"
-                                            },
-                                            [
-                                              _vm._v("Unanswered "),
-                                              _c("i", {
-                                                staticClass: "fas fa-times"
-                                              })
-                                            ]
-                                          )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(message.created_at))
-                                    ]),
-                                    _vm._v(" "),
-                                    message.message.length > 20
-                                      ? _c("td", {
-                                          domProps: {
-                                            innerHTML: _vm._s(
-                                              message.message.slice(0, 20)
-                                            )
-                                          }
-                                        })
-                                      : _c("td", {
-                                          domProps: {
-                                            innerHTML: _vm._s(message.message)
-                                          }
-                                        })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("tr", { staticClass: "expandable-body" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-bordered table-hover table-responsive"
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.messages.data, function(message) {
+                          return _vm.messages
+                            ? _c(
+                                "div",
+                                { key: message.id, staticClass: "message" },
+                                [
                                   _c(
-                                    "td",
-                                    { attrs: { colspan: "6" } },
+                                    "tr",
+                                    {
+                                      attrs: {
+                                        "data-widget": "expandable-table",
+                                        "aria-expanded": "false"
+                                      }
+                                    },
                                     [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "direct-chat-msg right"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "direct-chat-infos clearfix"
-                                            },
-                                            [
-                                              _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "direct-chat-name float-right"
-                                                },
-                                                [_vm._v("Me")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "direct-chat-timestamp float-left"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(message.created_at)
-                                                  )
-                                                ]
+                                      _c("td", [
+                                        _vm._v(_vm._s(message.subject))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(message.type))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        message.status == "answered"
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "badge badge-success"
+                                              },
+                                              [
+                                                _vm._v("Answered "),
+                                                _c("i", {
+                                                  staticClass: "fas fa-check"
+                                                })
+                                              ]
+                                            )
+                                          : _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "badge badge-danger"
+                                              },
+                                              [
+                                                _vm._v("Unanswered "),
+                                                _c("i", {
+                                                  staticClass: "fas fa-times"
+                                                })
+                                              ]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          _vm._s(
+                                            message.created_at.slice(0, 19)
+                                          )
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      message.message.length > 20
+                                        ? _c("td", {
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                message.message.slice(0, 20)
                                               )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("img", {
-                                            staticClass: "direct-chat-img",
-                                            attrs: {
-                                              src: _vm.userimg,
-                                              alt: _vm.useralt
                                             }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("div", {
-                                            staticClass: "direct-chat-text",
+                                          })
+                                        : _c("td", {
                                             domProps: {
                                               innerHTML: _vm._s(message.message)
                                             }
                                           })
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._l(message.answer, function(answer) {
-                                        return message.answer
-                                          ? _c(
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("tr", { staticClass: "expandable-body" }, [
+                                    _c(
+                                      "td",
+                                      { attrs: { colspan: "6" } },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "direct-chat-msg right"
+                                          },
+                                          [
+                                            _c(
                                               "div",
                                               {
-                                                key: answer.key,
-                                                staticClass: "answer"
+                                                staticClass:
+                                                  "direct-chat-infos clearfix"
                                               },
                                               [
-                                                answer.user_id == _vm.userid
-                                                  ? _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "direct-chat-msg right"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "div",
-                                                          {
-                                                            staticClass:
-                                                              "direct-chat-infos clearfix"
-                                                          },
-                                                          [
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "direct-chat-name float-right"
-                                                              },
-                                                              [_vm._v("Me")]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "direct-chat-timestamp float-left"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    answer.created_at
-                                                                  )
-                                                                )
-                                                              ]
-                                                            )
-                                                          ]
-                                                        ),
-                                                        _vm._v(" "),
-                                                        _c("img", {
-                                                          staticClass:
-                                                            "direct-chat-img",
-                                                          attrs: {
-                                                            src: _vm.userimg,
-                                                            alt: _vm.useralt
-                                                          }
-                                                        }),
-                                                        _vm._v(" "),
-                                                        _c("div", {
-                                                          staticClass:
-                                                            "direct-chat-text",
-                                                          domProps: {
-                                                            innerHTML: _vm._s(
-                                                              answer.message
-                                                            )
-                                                          }
-                                                        })
-                                                      ]
-                                                    )
-                                                  : _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "direct-chat-msg"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "div",
-                                                          {
-                                                            staticClass:
-                                                              "direct-chat-infos clearfix"
-                                                          },
-                                                          [
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "direct-chat-name float-left"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "Admin or Moderator"
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "direct-chat-timestamp float-right"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    answer.created_at
-                                                                  )
-                                                                )
-                                                              ]
-                                                            )
-                                                          ]
-                                                        ),
-                                                        _vm._v(" "),
-                                                        _c("img", {
-                                                          staticClass:
-                                                            "direct-chat-img",
-                                                          attrs: {
-                                                            src: _vm.userimg,
-                                                            alt: _vm.useralt
-                                                          }
-                                                        }),
-                                                        _vm._v(" "),
-                                                        _c("div", {
-                                                          staticClass:
-                                                            "direct-chat-text",
-                                                          domProps: {
-                                                            innerHTML: _vm._s(
-                                                              answer.message
-                                                            )
-                                                          }
-                                                        })
-                                                      ]
-                                                    )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "card-footer" },
-                                        [
-                                          _c(
-                                            "form",
-                                            {
-                                              on: {
-                                                submit: function($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.addAnswer(
-                                                    message.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                { staticClass: "input-group" },
-                                                [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value: _vm.form.message,
-                                                        expression:
-                                                          "form.message"
-                                                      }
-                                                    ],
+                                                _c(
+                                                  "span",
+                                                  {
                                                     staticClass:
-                                                      "form-control form-control-sm",
-                                                    attrs: {
-                                                      type: "text",
-                                                      placeholder:
-                                                        "Type Message ..."
-                                                    },
-                                                    domProps: {
-                                                      value: _vm.form.message
-                                                    },
-                                                    on: {
-                                                      input: function($event) {
-                                                        if (
-                                                          $event.target
-                                                            .composing
-                                                        ) {
-                                                          return
-                                                        }
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "message",
-                                                          $event.target.value
+                                                      "direct-chat-name float-right"
+                                                  },
+                                                  [_vm._v("Me")]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "direct-chat-timestamp float-left"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        message.created_at.slice(
+                                                          0,
+                                                          19
                                                         )
-                                                      }
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _vm.error.message
+                                                      )
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("img", {
+                                              staticClass: "direct-chat-img",
+                                              attrs: {
+                                                src: _vm.userimg,
+                                                alt: _vm.useralt
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("div", {
+                                              staticClass: "direct-chat-text",
+                                              domProps: {
+                                                innerHTML: _vm._s(
+                                                  message.message
+                                                )
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(message.answer, function(
+                                          answer
+                                        ) {
+                                          return message.answer
+                                            ? _c(
+                                                "div",
+                                                {
+                                                  key: answer.key,
+                                                  staticClass: "answer"
+                                                },
+                                                [
+                                                  answer.user_id == _vm.userid
                                                     ? _c(
-                                                        "span",
+                                                        "div",
                                                         {
                                                           staticClass:
-                                                            "text text-danger"
+                                                            "direct-chat-msg right"
                                                         },
                                                         [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              _vm.error
-                                                                .message[0]
-                                                            )
-                                                          )
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "direct-chat-infos clearfix"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "direct-chat-name float-right"
+                                                                },
+                                                                [_vm._v("Me")]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "direct-chat-timestamp float-left"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      message.created_at.slice(
+                                                                        0,
+                                                                        19
+                                                                      )
+                                                                    )
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c("img", {
+                                                            staticClass:
+                                                              "direct-chat-img",
+                                                            attrs: {
+                                                              src: _vm.userimg,
+                                                              alt: _vm.useralt
+                                                            }
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c("div", {
+                                                            staticClass:
+                                                              "direct-chat-text",
+                                                            domProps: {
+                                                              innerHTML: _vm._s(
+                                                                answer.message
+                                                              )
+                                                            }
+                                                          })
                                                         ]
                                                       )
-                                                    : _vm._e(),
-                                                  _vm._v(" "),
-                                                  _vm._m(1, true)
+                                                    : _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "direct-chat-msg"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "direct-chat-infos clearfix"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "direct-chat-name float-left"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Admin or Moderator"
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "direct-chat-timestamp float-right"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      message.created_at.slice(
+                                                                        0,
+                                                                        19
+                                                                      )
+                                                                    )
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c("img", {
+                                                            staticClass:
+                                                              "direct-chat-img",
+                                                            attrs: {
+                                                              src: _vm.userimg,
+                                                              alt: _vm.useralt
+                                                            }
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c("div", {
+                                                            staticClass:
+                                                              "direct-chat-text",
+                                                            domProps: {
+                                                              innerHTML: _vm._s(
+                                                                answer.message
+                                                              )
+                                                            }
+                                                          })
+                                                        ]
+                                                      )
                                                 ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("small", {
-                                                staticClass: "text-danger"
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    2
-                                  )
-                                ])
-                              ]
-                            )
-                          : _vm._e()
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ])
+                                              )
+                                            : _vm._e()
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "card-footer" },
+                                          [
+                                            _c(
+                                              "form",
+                                              {
+                                                on: {
+                                                  submit: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.addAnswer(
+                                                      message.id
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass: "input-group"
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.form.message,
+                                                          expression:
+                                                            "form.message"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-control form-control-sm",
+                                                      attrs: {
+                                                        type: "text",
+                                                        placeholder:
+                                                          "Type Message ..."
+                                                      },
+                                                      domProps: {
+                                                        value: _vm.form.message
+                                                      },
+                                                      on: {
+                                                        input: function(
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.form,
+                                                            "message",
+                                                            $event.target.value
+                                                          )
+                                                        }
+                                                      }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _vm.error.message
+                                                      ? _c(
+                                                          "span",
+                                                          {
+                                                            staticClass:
+                                                              "text text-danger"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                _vm.error
+                                                                  .message[0]
+                                                              )
+                                                            )
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
+                                                    _vm._m(1, true)
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("small", {
+                                                  staticClass: "text-danger"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        }),
+                        0
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("pagination", {
+                    staticClass: "ml-2 mt-2",
+                    attrs: { "show-disabled": true, data: _vm.messages },
+                    on: { "pagination-change-page": _vm.getAdminContacts }
+                  })
+                ],
+                1
+              )
             ])
           ])
         ])
@@ -51619,7 +51691,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "card" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "card-header p-2" }, [
+        _c("ul", { staticClass: "nav nav-pills" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm.userid == _vm.auth
+            ? _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#settings", "data-toggle": "tab" }
+                  },
+                  [_vm._v("Settings")]
+                )
+              ])
+            : _vm._e()
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "tab-content" }, [
@@ -51628,172 +51719,181 @@ var render = function() {
             attrs: { id: "activity" }
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "tab-pane", attrs: { id: "settings" } }, [
-            _vm.message == true
-              ? _c("div", { staticClass: "alert alert-success" }, [
-                  _c("span", { staticClass: "text-cener" }, [
-                    _vm._v("Updated Successfully")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                staticClass: "form-horizontal",
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.updateSettings.apply(null, arguments)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-2 col-form-label",
-                      attrs: { for: "inputName" }
-                    },
-                    [_vm._v("Name")]
-                  ),
+          _vm.userid == _vm.auth
+            ? _c(
+                "div",
+                { staticClass: "tab-pane", attrs: { id: "settings" } },
+                [
+                  _vm.message == true
+                    ? _c("div", { staticClass: "alert alert-success" }, [
+                        _c("span", { staticClass: "text-cener" }, [
+                          _vm._v("Updated Successfully")
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.name,
-                          expression: "form.name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "inputName",
-                        placeholder: "Name"
-                      },
-                      domProps: { value: _vm.form.name },
+                  _c(
+                    "form",
+                    {
+                      staticClass: "form-horizontal",
                       on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "name", $event.target.value)
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateSettings.apply(null, arguments)
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.name
-                      ? _c("span", { staticClass: "text text-danger" }, [
-                          _vm._v(_vm._s(_vm.error.name[0]))
-                        ])
-                      : _vm._e(),
-                    _c("br")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-2 col-form-label",
-                      attrs: { for: "inputEmail" }
                     },
-                    [_vm._v("Email")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.email,
-                          expression: "form.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "email", id: "inputEmail" },
-                      domProps: { value: _vm.form.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "email", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.email
-                      ? _c("span", { staticClass: "text text-danger" }, [
-                          _vm._v(_vm._s(_vm.error.email[0]))
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-2 col-form-label",
-                      attrs: { for: "inputName2" }
-                    },
-                    [_vm._v("Account Type")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-10" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                    [
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.acctype,
-                            expression: "form.acctype"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "inputName2" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "acctype",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.types, function(type) {
-                        return _c("option", { domProps: { value: type } }, [
-                          _vm._v(_vm._s(type.toUpperCase()))
+                            staticClass: "col-sm-2 col-form-label",
+                            attrs: { for: "inputName" }
+                          },
+                          [_vm._v("Name")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "inputName",
+                              placeholder: "Name"
+                            },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.error.name
+                            ? _c("span", { staticClass: "text text-danger" }, [
+                                _vm._v(_vm._s(_vm.error.name[0]))
+                              ])
+                            : _vm._e(),
+                          _c("br")
                         ])
-                      }),
-                      0
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._m(1)
-              ]
-            )
-          ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-2 col-form-label",
+                            attrs: { for: "inputEmail" }
+                          },
+                          [_vm._v("Email")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.email,
+                                expression: "form.email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "email", id: "inputEmail" },
+                            domProps: { value: _vm.form.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "email", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.error.email
+                            ? _c("span", { staticClass: "text text-danger" }, [
+                                _vm._v(_vm._s(_vm.error.email[0]))
+                              ])
+                            : _vm._e()
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-2 col-form-label",
+                            attrs: { for: "inputName2" }
+                          },
+                          [_vm._v("Account Type")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.acctype,
+                                  expression: "form.acctype"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "inputName2" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "acctype",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.types, function(type) {
+                              return _c(
+                                "option",
+                                { domProps: { value: type } },
+                                [_vm._v(_vm._s(type.toUpperCase()))]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
+                ]
+              )
+            : _vm._e()
         ])
       ])
     ])
@@ -51804,41 +51904,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header p-2" }, [
-      _c("ul", { staticClass: "nav nav-pills" }, [
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link active",
-              attrs: { href: "#activity", "data-toggle": "tab" }
-            },
-            [_vm._v("Activity")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: { href: "#timeline", "data-toggle": "tab" }
-            },
-            [_vm._v("Timeline")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: { href: "#settings", "data-toggle": "tab" }
-            },
-            [_vm._v("Settings")]
-          )
-        ])
-      ])
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link active",
+          attrs: { href: "#activity", "data-toggle": "tab" }
+        },
+        [_vm._v("Activity")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { href: "#timeline", "data-toggle": "tab" }
+        },
+        [_vm._v("Timeline")]
+      )
     ])
   },
   function() {
@@ -51941,9 +52030,49 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _c(
+                    "ul",
+                    { staticClass: "list-group list-group-unbordered mb-3" },
+                    [
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Followers")]),
+                        _vm._v(" "),
+                        _c("a", { staticClass: "float-right" }, [
+                          _vm._v(_vm._s(_vm.user.follow_count))
+                        ])
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _vm.isFollowed == false && _vm.user.id != _vm.auth
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.follow()
+                            }
+                          }
+                        },
+                        [_c("b", [_vm._v("Follow")])]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isFollowed == true && _vm.user.id != _vm.auth
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.unfollow(_vm.isFollowId)
+                            }
+                          }
+                        },
+                        [_c("b", [_vm._v("Unfollow")])]
+                      )
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -52039,7 +52168,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.descMessage == true
@@ -52175,7 +52304,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.descMessage == true
@@ -52263,40 +52392,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "list-group list-group-unbordered mb-3" }, [
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Followers")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "float-right" }, [_vm._v("1,322")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Following")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "float-right" }, [_vm._v("543")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Friends")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "float-right" }, [_vm._v("13,287")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-primary btn-block", attrs: { href: "#" } },
-      [_c("b", [_vm._v("Follow")])]
-    )
   },
   function() {
     var _vm = this

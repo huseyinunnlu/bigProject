@@ -30,6 +30,8 @@ Route::post('profile/{id}/update', [ProfileController::class, 'updateDesc']);
 Route::post('profile/{id}/updateimg', [ProfileController::class, 'updateimg']);
 Route::post('profile/{id}/settings',[ProfileController::class, 'updateSettings']);
 Route::post('profile/{id}/adddesc',[ProfileController::class, 'addDesc']);
+Route::post('/follow', [ProfileController::class, 'follow']);
+Route::delete('/unfollow/{id}', [ProfileController::class, 'unfollow']);
 //Users
 Route::get('users', [UserController::class, 'list']);
 Route::get('users/{id}', [UserController::class, 'userDetail']);

@@ -8,6 +8,7 @@ use App\Models\UserDesc;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\Follow;
 
 class ProfileController extends Controller
 {   
@@ -19,9 +20,9 @@ class ProfileController extends Controller
         return view('profile.profile',compact('userid','user')); 
     }
 
-    public function getUser($id)
+    public function getUser(Request $request,$id)
     {
-        $user = User::whereId($id)->first() ?? abort(404);
+        $user = User::whereId($id)->with('follow')->withCount('follow')->first() ?? abort(404);
         return response()->json($user);
     }
 
@@ -65,12 +66,12 @@ class ProfileController extends Controller
         for($i=0; $i < 10; $i++) {
             $key .= $keys[array_rand($keys)];
         }
-            $filename = $key.'.'.$request->image->extension();
-            $filenameWithUpload = '/uploads/'.$filename;
-            $request->image->move(public_path('uploads'),$filename);
-            $request->merge([
-                'image'=>$filenameWithUpload
-            ]);
+        $filename = $key.'.'.$request->image->extension();
+        $filenameWithUpload = '/uploads/'.$filename;
+        $request->image->move(public_path('uploads'),$filename);
+        $request->merge([
+            'image'=>$filenameWithUpload
+        ]);
 
         $userdesc = UserDesc::where('user_id',$id)->first();
         $userdesc->update($request->post());
@@ -91,5 +92,20 @@ class ProfileController extends Controller
         ]);
         $user = User::whereId($id)->first();
         return redirect()->route('profile',[$id,$user->slug]);
+    }
+
+    public function follow(Request $request)
+    {
+        $isFollowed = Follow::where('follower_id',$request->follower_id)->where('following_id',$request->following_id)->first();
+        if(!$isFollowed){
+            Follow::create([
+                'following_id'=>$request->following_id,
+                'follower_id'=>$request->follower_id,
+            ]);
+        }
+    }
+    public function unfollow($id)
+    {
+        Follow::whereId($id)->delete();
     }
 }

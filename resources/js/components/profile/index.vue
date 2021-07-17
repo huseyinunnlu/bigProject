@@ -37,16 +37,11 @@
 
 									<ul class="list-group list-group-unbordered mb-3">
 										<li class="list-group-item">
-											<b>Followers</b> <a class="float-right">1,322</a>
-										</li>
-										<li class="list-group-item">
-											<b>Following</b> <a class="float-right">543</a>
-										</li>
-										<li class="list-group-item">
-											<b>Friends</b> <a class="float-right">13,287</a>
+											<b>Followers</b> <a class="float-right">{{user.follow_count}}</a>
 										</li>
 									</ul>
-									<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+									<a v-if="isFollowed == false && user.id != auth" @click="follow()" class="btn btn-primary btn-block"><b>Follow</b></a>
+									<a v-if="isFollowed == true && user.id != auth" @click="unfollow(isFollowId)" class="btn btn-primary btn-block"><b>Unfollow</b></a>
 								</div>
 							</div>
 							<div class="card card-primary">
@@ -148,6 +143,8 @@
 				},
 				descMessage:false,
 				error:[],
+				isFollowed:false,
+				isFollowId:'',
 			}
 		},
 		props:['userid','auth'],
@@ -161,6 +158,12 @@
 				axios.get('/api/profile/'+this.userid)
 				.then(res=>{
 					this.user = res.data
+					for (var i = 0; i <= this.user.follow.length-1; i++) {
+						if(this.user.follow[i].follower_id == this.auth){
+							this.isFollowed = true
+							this.isFollowId = this.user.follow[i].id
+						}
+					}
 				})
 				.catch(err=>{
 					console.log(err)
@@ -226,6 +229,30 @@
 				})
 				.catch(err=>{
 					this.error=err.response.data.errors;
+					console.log(err)
+				})
+			},
+			follow(){
+				axios.post('/api/follow',{
+					'following_id':this.user.id,
+					'follower_id':this.auth,
+				})
+				.then(res=>{
+					this.getUser()
+					this.getDesc()
+				})
+				.catch(err=>{
+					console.log(err)
+				})
+			},
+			unfollow(){
+				axios.delete('/api/unfollow/'+this.isFollowId)
+				.then(res=>{
+					this.getUser()
+					this.getDesc()
+					this.isFollowed = false
+				})
+				.catch(err=>{
 					console.log(err)
 				})
 			}

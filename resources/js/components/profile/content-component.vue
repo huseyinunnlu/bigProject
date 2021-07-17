@@ -5,14 +5,14 @@
 				<ul class="nav nav-pills">
 					<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
 					<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-					<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+					<li v-if="userid == auth" class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
 				</ul>
 			</div>
 			<div class="card-body">
 				<div class="tab-content">
 					<div class="active tab-pane" id="activity">
 					</div>
-					<div class="tab-pane" id="settings">
+					<div v-if="userid == auth" class="tab-pane" id="settings">
 						<div v-if="message==true" class="alert alert-success">
 							<span class="text-cener">Updated Successfully</span>
 						</div>

@@ -9,6 +9,7 @@ use App\Models\Animal;
 use App\Models\Milk;
 use App\Models\Contact;
 use App\Models\Answer;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {   
@@ -102,7 +103,7 @@ class IndexController extends Controller
 
     public function adminGetContacts()
     {
-        $messages = Contact::with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->get();
+        $messages = Contact::with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->paginate(1);
         return response()->json($messages);
     }
 
