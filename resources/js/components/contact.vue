@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content">
 			<!-- Default box -->
 			<div class="card">
@@ -93,7 +94,12 @@
 	</div>
 </template>	
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+	components:{
+		Loading
+	},
 	data(){
 		return {
 			messages:{},
@@ -104,6 +110,8 @@ export default {
 			error:[],
 			userimg:'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
 			useralt:'user-img',
+			isLoading : false,
+			isSuccess : false
 		}
 	},
 	props:['userid'],
@@ -112,15 +120,19 @@ export default {
 	},
 	methods:{
 		getAdminContacts(page = 1){
+			this.isLoading = true
 			axios.get('/api/adminpanel/contact/get?page=' + page)
 			.then(res=>{
 				this.messages = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		addAnswer(id){
+			this.isLoading = true
 			axios.post('/api/adminpanel/contact/addAnswer',{
 				'user_id':this.userid,
 				'contact_id':id,
@@ -129,10 +141,12 @@ export default {
 			.then(res=>{
 				this.getAdminContacts()
 				this.sMessage = true
+				is.isSuccess = true
 			})
 			.catch(err=>{
 				this.error = err.response.data.errors
 			})
+			.finally(()=>this.isLoading = false)
 		}
 	}
 }

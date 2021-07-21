@@ -38,7 +38,7 @@ class AnimalController extends Controller
         ->where($request->col,$request->search)
         ->whereIn('type',$types)
         ->whereIn('gender',$genders)
-        ->with('milk')->paginate(10) ?? abort(404);
+        ->with('milk')->paginate(3) ?? abort(404);
         return response()->json($animals);
     }
 

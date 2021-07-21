@@ -103,7 +103,7 @@ class IndexController extends Controller
 
     public function adminGetContacts()
     {
-        $messages = Contact::with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->paginate(1);
+        $messages = Contact::with('answer')->orderBy('status','desc')->orderBy('created_at','desc')->paginate(20);
         return response()->json($messages);
     }
 

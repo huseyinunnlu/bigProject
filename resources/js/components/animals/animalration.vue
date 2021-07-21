@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card">
@@ -73,13 +74,20 @@
 </div>
 </template>
 <script>
+	import Loading from 'vue-loading-overlay'
+	import 'vue-loading-overlay/dist/vue-loading.css';
 	export default {
+		components:{
+			Loading
+		},
 		data(){
 			return {
 				myRats:[],
 				favRats:[],
 				activeRation:[],
 				message :false,
+				isLoading: false,
+				isSuccess: false,
 			}
 		},
 		props:['userid','animalid','isdeath'],
@@ -90,6 +98,7 @@
 		},
 		methods:{
 			getMyRations(){
+				this.isLoading = true
 				axios.get('/api/myRats',{
 					params:{
 						user_id:this.userid,
@@ -97,12 +106,15 @@
 				})
 				.then(res=>{
 					this.myRats = res.data
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(()=>this.isLoading = false)
 			},
 			getFavRations(){
+				this.isLoading = true
 				axios.get('/api/favRats',{
 					params:{
 						user_id:this.userid,
@@ -110,45 +122,57 @@
 				})
 				.then(res=>{
 					this.favRats = res.data
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(()=>this.isLoading = false)
 			},
 			getActiveRation(){
+				this.isLoading = true
 				axios.get('/api/animals/'+this.$route.params.id+'/activerat')
 				.then(res=>{
 					this.activeRation = res.data
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(()=>this.isLoading = false)
+
 			},
 			updateRation(id){
+				this.isLoading = true
 				axios.post('/api/animals/'+this.$route.params.id+'/addRat',{
 					'ration_id':id
 				})
 				.then(res=>{
 					this.getActiveRation()
 					this.message = true
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					this.message = false
 					console.log(err)
 				})
+				.finally(()=>this.isLoading = false)
 			},
 			delActiveRation(id){
+				this.isLoading = true
 				axios.delete('/api/activerat/'+id+'/delete')
 				.then(res=>{
 					this.getActiveRation()
 					this.getMyRations()
 					this.getFavRations()
 					this.message = true
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 					this.message = false
 				})
+				.finally(()=>this.isLoading = false)
 			}
 		}
 	}

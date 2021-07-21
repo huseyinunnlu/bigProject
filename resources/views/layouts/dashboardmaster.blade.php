@@ -159,6 +159,12 @@
 									<p>Contact</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('admin.forum.cat.index') }}" class="nav-link">
+									<i class="fas fa-layer-group nav-icon"></i>
+									<p>Forum Category</p>
+								</a>
+							</li>
 						</ul>
 					</li>
 					@endif

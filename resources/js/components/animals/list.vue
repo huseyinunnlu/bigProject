@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -149,80 +150,99 @@
 	</div>
 </template>
 <script>
-export default{
-	data(){
-		return {
-			animals:{},
-			types:[{name:'Cattles',value:'cattle',},{name:'Sheeps And Goats',value:'shandgo',}],
-			genders:['male','female'],
-			cols:['earring','name','strap'],
-			form:{	
-				earring:'',
-				strap:'',
-				name:'',
-				type:'',
-				gender:'',
-				birth:'',
-			},
-			filter:{
-				col:null,
-				search:'',
-				gender:null,
-				type:null,
-			},
-			message:false,
-			error:[],
-		}
-	},
-	created(){
-		this.getAnimals()
-	},
-	props:['userid'],
-	methods:{
-		addAnimal(){
-			axios.post('/api/animals/create',{
-				'user_id':this.userid,
-				'earring':this.form.earring,
-				'strap':this.form.strap,
-				'name':this.form.name,
-				'type':this.form.type,
-				'gender':this.form.gender,
-				'birth':this.form.birth,
-			})
-			.then(res=>{
-				this.getAnimals()
-				this.message = true
-			})
-			.catch(err=>{
-				this.error = err.response.data.errors;
-				console.log(err)
-			})
+
+	import Loading from 'vue-loading-overlay'
+	import 'vue-loading-overlay/dist/vue-loading.css';
+
+	export default{
+
+		components: {
+			Loading,
 		},
-		getAnimals(page = 1){
-			axios.get('/api/animals?page=' + page,{
-				params:{
-					user_id:this.userid,
-					search:this.filter.search,
-					col:this.filter.col,
-					type:this.filter.type,
-					gender:this.filter.gender,
-				}
-			})
-			.then(res=>{
-				this.animals = res.data
-			})
-			.catch(err=>{
-				console.log(err)
-			})
+
+		data(){
+			return {
+				animals:{},
+				types:[{name:'Cattles',value:'cattle',},{name:'Sheeps And Goats',value:'shandgo',}],
+				genders:['male','female'],
+				cols:['earring','name','strap'],
+				isLoading: false,
+				isSuccess: false,
+				form:{	
+					earring:'',
+					strap:'',
+					name:'',
+					type:'',
+					gender:'',
+					birth:'',
+				},
+				filter:{
+					col:null,
+					search:'',
+					gender:null,
+					type:null,
+				},
+				message:false,
+				error:[],
+			}
 		},
-		reset(){
-			this.filter.col=null
-			this.filter.search=''
-			this.filter.gender=null
-			this.filter.type=null
+		created(){
 			this.getAnimals()
 		},
-	}
+		props:['userid'],
+		methods:{
+			addAnimal(){
+				this.isLoading = true;
+				this.isSuccess = false;
+				axios.post('/api/animals/create',{
+					'user_id':this.userid,
+					'earring':this.form.earring,
+					'strap':this.form.strap,
+					'name':this.form.name,
+					'type':this.form.type,
+					'gender':this.form.gender,
+					'birth':this.form.birth,
+				})
+				.then(res=>{
+					this.isSuccess = true;
+					this.getAnimals()
+					this.message = true
+				})
+				.catch(err=>{
+					this.error = err.response.data.errors;
+					console.log(err)
+				})
+				.finally(() => this.isLoading = false);
+			},
+			getAnimals(page = 1){
+				this.isLoading = true;
+				this.isSuccess = false;
+				axios.get('/api/animals?page=' + page,{
+					params:{
+						user_id:this.userid,
+						search:this.filter.search,
+						col:this.filter.col,
+						type:this.filter.type,
+						gender:this.filter.gender,
+					}
+				})
+				.then(res=>{
+					this.isSuccess = true
+					this.animals = res.data
+				})
+				.catch(err=>{
+					console.log(err)
+				})
+				.finally(() => this.isLoading = false);
+			},
+			reset(){
+				this.filter.col=null
+				this.filter.search=''
+				this.filter.gender=null
+				this.filter.type=null
+				this.getAnimals()
+			},
+		}
 
-}
+	}
 </script>

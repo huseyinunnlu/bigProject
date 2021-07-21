@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -113,7 +114,9 @@
 						</div>
 						<form @submit.prevent="updateImg">
 							<div class="form-group">
-								<img :src="desc.image"
+								<img v-if="preview" :src="preview"
+								style="width: 150px; height: 150px;">
+								<img v-else :src="desc.image"
 								style="width: 150px; height: 150px;">
 							</div>
 							<div class="form-group">
@@ -129,7 +132,12 @@
 	</div>
 </template>
 <script>
+	import Loading from 'vue-loading-overlay'
+	import 'vue-loading-overlay/dist/vue-loading.css';
 	export default{
+		components:{
+			Loading
+		},
 		data(){
 			return{
 				user:[],
@@ -145,6 +153,9 @@
 				error:[],
 				isFollowed:false,
 				isFollowId:'',
+				isLoading: false,
+				isSuccess: false,
+				preview:'',
 			}
 		},
 		props:['userid','auth'],
@@ -155,6 +166,8 @@
 		},
 		methods:{
 			getUser(){
+				this.isLoading = true
+				this.isSuccess = false
 				axios.get('/api/profile/'+this.userid)
 				.then(res=>{
 					this.user = res.data
@@ -164,10 +177,12 @@
 							this.isFollowId = this.user.follow[i].id
 						}
 					}
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(() => this.isLoading = false);
 			},
 			getDesc(){
 				axios.get('/api/profile/'+this.userid+'/desc')
@@ -185,6 +200,8 @@
 				})
 			},
 			createDesc(){
+				this.isLoading = true
+				this.isSuccess = false
 				axios.post('/api/profile/'+this.userid+'/adddesc', {
 					'user_id':this.userid,
 					'image':'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
@@ -194,15 +211,20 @@
 				.then(res=>{
 					this.desc = res.data
 					this.getDesc()
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(() => this.isLoading = false);
 			},
 			isUploaded(e){
 				this.form.image = e.target.files[0]
+				this.preview = URL.createObjectURL(this.form.image);
 			},
 			updateDesc(){
+				this.isLoading = true
+				this.isSuccess = false
 				axios.post('/api/profile/'+this.userid+'/update',{
 					'image':this.form.image,
 					'bio':this.form.bio,
@@ -212,25 +234,32 @@
 					this.getDesc()
 					this.error=[]
 					this.descMessage = true
+					this.isSuccess = true
+
 				})
 				.catch(err=>{
 					this.error=err.response.data.errors;
 					console.log(err)
 				})
+				.finally(() => this.isLoading = false);
 			},
 			updateImg(){
 				const formData = new FormData
 				formData.set('image', this.form.image)
+				this.isLoading = true
+				this.isSuccess = false
 				axios.post('/api/profile/'+this.userid+'/updateimg', formData)
 				.then(res=>{
 					this.getDesc();
 					this.error=[]
 					this.descMessage = true
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					this.error=err.response.data.errors;
 					console.log(err)
 				})
+				.finally(() => this.isLoading = false);
 			},
 			follow(){
 				axios.post('/api/follow',{

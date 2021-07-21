@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RationController;
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\FRationController;
 use App\Http\Controllers\RationGuideController;
 
@@ -32,6 +33,20 @@ Route::middleware('auth')->group(function () {
 		Route::get('/users', [UserController::class, 'index'])->name('users.index');
 		Route::get('/rations', [RationController::class, 'index'])->name('rations.index')->middleware('GoDashboard');
 		Route::get('/contact', [IndexController::class, 'adminContactIndex'])->name('admin.contact.index')->middleware('GoDashboard');
+		//Forum Category
+		Route::get('/forum/category', [AdminCategoryController::class, 'forumMainCatList'])->name('admin.forum.cat.index')->middleware('GoDashboard');
+		Route::get('/forum/category/create', [AdminCategoryController::class, 'forumMainCatCreate'])->name('admin.forum.cat.create')->middleware('GoDashboard');
+		Route::get('/forum/category/{id}/edit', [AdminCategoryController::class, 'forumMainCatEdit'])->name('admin.forum.cat.edit')->middleware('GoDashboard');
+		Route::post('/forum/category/{id}/update', [AdminCategoryController::class, 'forumMainCatUpdate'])->name('admin.forum.cat.update')->middleware('GoDashboard');
+		Route::post('/forum/category/store', [AdminCategoryController::class, 'forumMainCatStore'])->name('admin.forum.cat.store')->middleware('GoDashboard');
+		Route::get('/forum/category/{id}/delete', [AdminCategoryController::class, 'forumMainCatDelete'])->name('admin.forum.cat.delete')->middleware('GoDashboard');
+		//Forum Alt Category
+		Route::get('/forum/category/{id}/altcat/create', [AdminCategoryController::class, 'forumAltCatCreate'])->name('admin.forum.alt.cat.create')->middleware('GoDashboard');
+		Route::get('/forum/altcategory/{id}/delete', [AdminCategoryController::class, 'forumAltCatDelete'])->name('admin.forum.alt.cat.delete')->middleware('GoDashboard');
+		Route::get('/forum/altcategory/{id}/edit', [AdminCategoryController::class, 'forumAltCatEdit'])->name('admin.forum.alt.cat.edit')->middleware('GoDashboard');
+		Route::post('/forum/altcategory/{id}/update', [AdminCategoryController::class, 'forumAltCatUpdate'])->name('admin.forum.alt.cat.update')->middleware('GoDashboard');
+		Route::post('/forum/altcategory/store', [AdminCategoryController::class, 'forumAltCatStore'])->name('admin.forum.alt.cat.store')->middleware('GoDashboard');
+
 	});
 	Route::get('/rations/guide', [RationGuideController::class, 'index'])->name('guide.index')->middleware('GoDashboard');
 	Route::get('/contact', [IndexController::class, 'contact'])->name('contact.index')->middleware('GoDashboard');

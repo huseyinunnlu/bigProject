@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -17,7 +18,7 @@
 		</section>
 		<section class="content">
 			<div class="container-fluid row">
-				<div class="col-md-8 offset-md-2">
+				<div class="col-md-10 offset-md-1">
 					<div class="card">
 						<div class="card-header">
 							<div class="card-tools">
@@ -98,7 +99,12 @@
 	</div>
 </template>
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
+	components:{
+			Loading
+	},
 	data(){
 		return{
 			rations:{},
@@ -107,6 +113,8 @@ export default {
 				get:null,
 				order:'desc',
 			},
+			isLoading: false,
+			isSuccess: false,
 		}
 	},
 	props:['userid'],
@@ -121,6 +129,7 @@ export default {
 			this.getRations()
 		},
 		getRations(page = 1){
+			this.isLoading = true
 			axios.get('/api/rations/list?page=' + page,{
 				params:{
 					get:this.form.get,
@@ -131,10 +140,12 @@ export default {
 			})
 			.then(res=>{
 				this.rations = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		}
 	}
 }

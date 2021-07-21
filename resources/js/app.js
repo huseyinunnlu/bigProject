@@ -12,7 +12,6 @@ import {routes} from './routes';
 import CKEditor from 'ckeditor4-vue';
 import Dropdown from 'vue-simple-search-dropdown';
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
-
 Vue.use(Dropdown);
 Vue.use(VueRouter);
 Vue.use( CKEditor );

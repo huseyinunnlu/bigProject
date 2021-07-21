@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -49,7 +50,12 @@
 	</div>
 </template>
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
 	export default {
+		components:{
+			Loading
+		},
 		data(){
 			return {
 				form:{
@@ -57,8 +63,9 @@
 					desc:'',
 				},
 				message:false,
-				error:[]
-
+				error:[],
+				isLoading: false,
+				isSuccess: false,
 			}
 		},
 		created(){
@@ -66,15 +73,19 @@
 		},
 		methods:{
 			getRation(){
+				this.isLoading = true
 				axios.get('/api/ration/'+this.$route.params.id+'/get')
 				.then(res=>{
 					this.form= res.data
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 				})
+				.finally(()=>this.isLoading = false)
 			},
 			updateRation(){
+				this.isLoading = true
 				axios.post('/api/ration/'+this.$route.params.id+'/update',{
 					'name':this.form.name,
 					'desc':this.form.desc,
@@ -82,11 +93,13 @@
 				.then(res=>{
 					this.getRation()
 					this.message = true
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					this.error = err.response.data.errors
 					this.message = false 
 				})
+				.finally(()=>this.isLoading = false)
 			}
 		}
 	}

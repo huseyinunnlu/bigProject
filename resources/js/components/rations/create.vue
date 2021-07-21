@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -278,8 +279,12 @@
 
 </template>
 <script>
-
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default{
+	components:{
+		Loading
+	},
 	data(){
 		return {
 			types:[],
@@ -336,6 +341,8 @@ export default{
 			avgPrice:0,
 			message: false,
 			error:[],
+			isLoading: false,
+			isSuccess: false,
 		}
 	},
 	props:['userid'],
@@ -345,22 +352,28 @@ export default{
 	},
 	methods:{
 		getType(){
+			this.isLoading = true
 			axios.get('/api/rations/gettype')
 			.then(res=>{
 				this.types = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		getFood(){
+			this.isLoading = true
 			axios.get('/api/rations/getfood')
 			.then(res=>{
 				this.foods = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		getSelectedType(){
 			axios.get('/api/rations/selectedtype',{
@@ -383,6 +396,7 @@ export default{
 			this.avgPrice = parseInt(this.sumfood) / sumPrice;
 		},
 		addRation(){
+			this.isLoading = true
 			if(this.sumfood == 0){
 				this.sumfood = null
 			}
@@ -438,11 +452,13 @@ export default{
 			})
 			.then(res=>{
 				$('#successModal').modal('show');
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				this.error = err.response.data.errors;
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false) 
 		},
 		resetFields(){
 			this.form.name = ''

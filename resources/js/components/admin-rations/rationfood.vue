@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -201,103 +202,115 @@
 	</div>
 </template>
 <script>
-	export default {
-		data(){
-			return {
-				food:[],
-				foodForm:{
-					'name':'',
-					'drym':'',
-					'energy':'',
-					'protein':'',
-					'dp':'',
-					'bp':'',
-					'cel':'',
-					'fat':'',
-					'ash':'',
-					'ca':'',
-					'p':'',
-					'na':'',
-					'k':'',
-					's':'',
-					'cl':'',
-				},
-				message:false,
-				error:[],
-			}
-		},
-		created(){
-			this.getfood()
-		},
-		methods:{
-			getfood(){
-				axios.get('/api/rations/food/'+this.$route.params.id+'/details')
-				.then(res=>{
-					this.food = res.data
-					this.foodForm = res.data
-					var ctxP = document.getElementById("proteinChart").getContext('2d');
-					var myproteinChart = new Chart(ctxP, {
-						type: 'pie',
-						data: {
-							labels: ["Destroyable protein "+(this.food.dp), "BypassProtein "+(this.food.bp),],
-							datasets: [{
-								data: [this.food.dp, this.food.bp],
-								backgroundColor: ["#F7464A", "#46BFBD",],
-								hoverBackgroundColor: ["#FF5A5E", "#5AD3D1",]
-							}]
-						},
-						options: {
-							responsive: true
-						}
-					});
-					var ctxP = document.getElementById("pieChart1").getContext('2d');
-					var myPieChart1 = new Chart(ctxP, {
-						type: 'pie',
-						data: {
-							labels: ["Ash "+(this.food.ash), "Calcium "+(this.food.ca), "Cellulose "+(this.food.cel), "Clor "+(this.food.cl), "Potasium "+(this.food.k), "Sodium "+(this.food.na) ,"Phospor "+(this.food.p), "Sulfur "+(this.food.s)],
-							datasets: [{
-								data: [this.food.ash, this.food.ca, this.food.cel, this.food.cl, this.food.k, this.food.na, this.food.p, this.food.s],
-								backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360", "#142459", "#19AADE", "#290668"],
-								hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774", "#176BA0", "#1AC9E6", "#7D3AC1"]	
-							}]
-						},
-						options: {
-							responsive: true
-						}
-					});
-
-				})
-				.catch(err=>{
-					console.log(err)
-				})
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
+export default {
+	components:{
+		Loading
+	},
+	data(){
+		return {
+			food:[],
+			foodForm:{
+				'name':'',
+				'drym':'',
+				'energy':'',
+				'protein':'',
+				'dp':'',
+				'bp':'',
+				'cel':'',
+				'fat':'',
+				'ash':'',
+				'ca':'',
+				'p':'',
+				'na':'',
+				'k':'',
+				's':'',
+				'cl':'',
 			},
-			updateFood(){
-				axios.post('/api/rations/food/'+this.$route.params.id+'/update',{
-					'name':this.foodForm.name,
-					'drym':this.foodForm.drym,
-					'energy':this.foodForm.energy,
-					'protein':this.foodForm.protein,
-					'dp':this.foodForm.dp,
-					'bp':this.foodForm.bp,
-					'cel':this.foodForm.cel,
-					'fat':this.foodForm.fat,
-					'ash':this.foodForm.ash,
-					'ca':this.foodForm.ca,
-					'p':this.foodForm.p,
-					'na':this.foodForm.na,
-					'k':this.foodForm.k,
-					's':this.foodForm.s,
-					'cl':this.foodForm.cl,
-				})
-				.then(res=>{
-					this.message = true;
-					this.getFood()
-				})
-				.catch(err=>{
-					this.message = false
-					this.error = err.response.data.errors;
-				})
-			}
+			message:false,
+			error:[],
+			isLoading:false,
+			isSuccess:false,
+		}
+	},
+	created(){
+		this.getfood()
+	},
+	methods:{
+		getfood(){
+			this.isLoading = true
+			axios.get('/api/rations/food/'+this.$route.params.id+'/details')
+			.then(res=>{
+				this.food = res.data
+				this.foodForm = res.data
+				var ctxP = document.getElementById("proteinChart").getContext('2d');
+				var myproteinChart = new Chart(ctxP, {
+					type: 'pie',
+					data: {
+						labels: ["Destroyable protein "+(this.food.dp), "BypassProtein "+(this.food.bp),],
+						datasets: [{
+							data: [this.food.dp, this.food.bp],
+							backgroundColor: ["#F7464A", "#46BFBD",],
+							hoverBackgroundColor: ["#FF5A5E", "#5AD3D1",]
+						}]
+					},
+					options: {
+						responsive: true
+					}
+				});
+				var ctxP = document.getElementById("pieChart1").getContext('2d');
+				var myPieChart1 = new Chart(ctxP, {
+					type: 'pie',
+					data: {
+						labels: ["Ash "+(this.food.ash), "Calcium "+(this.food.ca), "Cellulose "+(this.food.cel), "Clor "+(this.food.cl), "Potasium "+(this.food.k), "Sodium "+(this.food.na) ,"Phospor "+(this.food.p), "Sulfur "+(this.food.s)],
+						datasets: [{
+							data: [this.food.ash, this.food.ca, this.food.cel, this.food.cl, this.food.k, this.food.na, this.food.p, this.food.s],
+							backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360", "#142459", "#19AADE", "#290668"],
+							hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774", "#176BA0", "#1AC9E6", "#7D3AC1"]	
+						}]
+					},
+					options: {
+						responsive: true
+					}
+				});
+				this.isSuccess = true
+			})
+			.catch(err=>{
+				console.log(err)
+			})
+			.finally(()=>this.isLoading = false)
+		},
+		updateFood(){
+			this.isLoading = true
+			axios.post('/api/rations/food/'+this.$route.params.id+'/update',{
+				'name':this.foodForm.name,
+				'drym':this.foodForm.drym,
+				'energy':this.foodForm.energy,
+				'protein':this.foodForm.protein,
+				'dp':this.foodForm.dp,
+				'bp':this.foodForm.bp,
+				'cel':this.foodForm.cel,
+				'fat':this.foodForm.fat,
+				'ash':this.foodForm.ash,
+				'ca':this.foodForm.ca,
+				'p':this.foodForm.p,
+				'na':this.foodForm.na,
+				'k':this.foodForm.k,
+				's':this.foodForm.s,
+				'cl':this.foodForm.cl,
+			})
+			.then(res=>{
+				this.message = true;
+				this.getFood()
+				this.isSuccess = true
+			})
+			.catch(err=>{
+				this.message = false
+				this.error = err.response.data.errors;
+			})
+			.finally(()=>this.isLoading = false)
 		}
 	}
+}
 </script>

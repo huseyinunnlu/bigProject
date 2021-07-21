@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<loading :active.sync="isLoading" />
 		<div class="card">
 			<div class="card-header p-2">
 				<ul class="nav nav-pills">
@@ -52,7 +53,14 @@
 	</div>
 </template>
 <script>
+	
+	import Loading from 'vue-loading-overlay'
+	import 'vue-loading-overlay/dist/vue-loading.css';
+
 	export default{
+		components:{
+			Loading
+		},
 		data(){
 			return {
 				form:{
@@ -63,6 +71,8 @@
 				types:['public','private','onlyme'],
 				error:[],
 				message:false,
+				isLoading: false,
+				isSuccess: false,
 			}
 		},
 		props:['auth','userid'],
@@ -80,6 +90,7 @@
 				})
 			},
 			updateSettings(){
+				this.isLoading = true
 				axios.post('/api/profile/'+this.userid+'/settings',{
 					'name':this.form.name,
 					'email':this.form.email,
@@ -89,11 +100,13 @@
 					this.error = []
 					this.message = true
 					this.getUser()
+					this.isSuccess = true
 				})
 				.catch(err=>{
 					console.log(err)
 					this.error=err.response.data.errors
 				})
+				.finally(() => this.isLoading = false);
 			}
 
 		}

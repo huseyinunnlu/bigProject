@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<div>
+			<loading :active.sync="isLoading" />
 			<section class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
@@ -21,7 +22,7 @@
 					<div v-if="delMessage==true" class="alert alert-success text-center col-md-12">
 						<span>Deleted Successfully</span>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-8 offset-md-2">
 						<div class="card">
 							<div class="card-header">
 								<div class="card-tools">
@@ -128,17 +129,6 @@
 						</div>
 						<!-- /.card -->
 					</div>
-
-
-
-
-					<div class="col-md-5">
-						
-					</div>
-
-
-
-					
 					<div>
 						<div class="modal fade" id="addRationFood" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
@@ -313,7 +303,13 @@
 	</div>
 </template>
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
+	components:{
+		Loading
+	},
 	data(){
 		return {
 			foods:{},
@@ -350,6 +346,8 @@ export default {
 			typeMessage:false,
 			delMessage:false,
 			error:[],
+			isLoading:false,
+			isSuccess:false,
 		}
 	},
 	created(){
@@ -367,6 +365,7 @@ export default {
 			this.getType()
 		},
 		addFood(){
+			this.isLoading = true
 			axios.post('/api/rations/addfood',{
 				'name':this.foodForm.name,
 				'drym':this.foodForm.drym,
@@ -388,12 +387,15 @@ export default {
 				this.foodMessage=true
 				this.getFood()
 				this.foodForm = ''
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				this.error = err.response.data.errors;
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		addType(){
+			this.isLoading = true
 			axios.post('/api/rations/addType',{
 				'name':this.typeForm.name,
 				'energy':this.typeForm.energy,
@@ -405,12 +407,15 @@ export default {
 			})
 			.then(res=>{
 				this.typeMessage=true
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				this.error = err.response.data.errors
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		getType(){
+			this.isLoading = true
 			axios.get('/api/rations/gettype',{
 				params:{
 					typesearch:this.typeSearch,
@@ -418,12 +423,15 @@ export default {
 			})
 			.then(res=>{
 				this.types = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)			
 		},
 		getFood(page = 1){
+			this.isLoading = true
 			axios.get('/api/rations/getfood?page=' + page,{
 				params:{
 					search:this.search,
@@ -431,30 +439,38 @@ export default {
 			})
 			.then(res=>{
 				this.foods = res.data
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
-			})	
+			})
+			.finally(()=>this.isLoading = false)	
 		},
 		deleteFood(id){
+			this.isLoading = true
 			axios.delete('/api/rations/'+id+'/deletefood')
 			.then(res=>{
 				this.delMessage=true
 				this.getFood()
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		},
 		deleteType(id){
+			this.isLoading = true
 			axios.delete('/api/rations/'+id+'/deletetype')
 			.then(res=>{
 				this.delMessage=true
 				this.getType()
+				this.isSuccess = true
 			})
 			.catch(err=>{
 				console.log(err)
 			})
+			.finally(()=>this.isLoading = false)
 		}
 
 	},
