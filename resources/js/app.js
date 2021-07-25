@@ -12,9 +12,12 @@ import {routes} from './routes';
 import CKEditor from 'ckeditor4-vue';
 import Dropdown from 'vue-simple-search-dropdown';
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import { VueSpinners } from '@saeris/vue-spinners'
+
 Vue.use(Dropdown);
 Vue.use(VueRouter);
 Vue.use( CKEditor );
+Vue.use(VueSpinners)
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
 Vue.component('index', require('./components/profile/index.vue').default);
 Vue.component('content-component', require('./components/profile/content-component.vue').default);
@@ -27,7 +30,10 @@ Vue.component('ration-create', require('./components/rations/create.vue').defaul
 Vue.component('list-food', require('./components/rations/listFood.vue').default);
 Vue.component('front-rations-list', require('./components/rations/list.vue').default);
 Vue.component('contact', require('./components/contact.vue').default);
+Vue.component('posts', require('./components/forum/posts.vue').default);
+Vue.component('post-article', require('./components/forum/postArticle.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

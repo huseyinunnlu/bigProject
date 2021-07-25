@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\FRationController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ForumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +82,8 @@ Route::post('/ration/{id}/update', [FRationController::class, 'updateRation']);
 //Contact
 Route::get('/adminpanel/contact/get ', [IndexController::class, 'adminGetContacts']);
 Route::post('/adminpanel/contact/addAnswer ', [IndexController::class, 'apiAnswerStore']);
+//Forum
+Route::get('/forum/getposts', [ForumController::class, 'getPosts']);
+Route::get('/forum/{id}/getmessages', [ForumController::class, 'getMessages']);
+Route::post('/forum/{id}/addmesage', [ForumController::class, 'addMessage']);
 

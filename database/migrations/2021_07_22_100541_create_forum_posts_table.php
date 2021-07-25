@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAltCategoriesTable extends Migration
+class CreateForumPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateAltCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('alt_categories', function (Blueprint $table) {
+        Schema::create('forum_posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('main_cat_id');
             $table->string('title');
             $table->string('slug');
-            $table->enum('status',['active','inactive']);
-            $table->foreign('main_cat_id')->references('id')->on('main_categories')->onDelete('cascade');            
+            $table->unsignedBigInteger('user_id');
+            $table->enum('status',['active','inactive'])->default('active');
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateAltCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alt_categories');
+        Schema::dropIfExists('forum_posts');
     }
 }

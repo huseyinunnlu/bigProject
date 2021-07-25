@@ -192,10 +192,6 @@
 <!-- /.control-sidebar -->
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
-
-<script>
-
-</script>
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="{{ asset('/asset/plugins/jquery/jquery.min.js') }}"></script>

@@ -16,6 +16,7 @@ class CreateMainCategoriesTable extends Migration
         Schema::create('main_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->enum('status',['active','inactive']);
         });
     }

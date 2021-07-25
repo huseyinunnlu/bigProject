@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RationController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\FRationController;
 use App\Http\Controllers\RationGuideController;
+use App\Http\Controllers\ForumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
 	Route::get('/contact', [IndexController::class, 'contact'])->name('contact.index')->middleware('GoDashboard');
 	Route::post('/contact/store', [IndexController::class, 'store'])->name('contact.store')->middleware('GoDashboard');
 	Route::post('/answer/store', [IndexController::class, 'answerStore'])->name('answer.store')->middleware('GoDashboard');
+	//Forum
+	Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+	Route::get('/forum/posts/{slug}/post={id}', [ForumController::class, 'postArticle'])->name('forum.post.article');
+	Route::post('/forum/addpost', [ForumController::class, 'storePost'])->name('forum.storePost');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
